@@ -28,7 +28,7 @@ import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
 
 const App = () => {
-  const { activeMenu, themeSettings, setThemeSettings, currentColor, currentMode } =
+  const { currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } =
     useStateContext();
 
   return (
