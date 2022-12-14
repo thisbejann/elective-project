@@ -10,12 +10,16 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { employeesData, employeesGrid } from "../data/dummy";
-import { Header } from "../components";
+import { Header, IncomeDialog } from "../components";
 
-const Employees = () => {
+const Income = () => {
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Employees" />
+      <div className="flex justify-between mt-12 md:mt-3">
+        <Header category="Page" title="Income" />
+        <IncomeDialog />
+      </div>
+
       <GridComponent
         dataSource={employeesData}
         allowPaging
@@ -34,4 +38,4 @@ const Employees = () => {
   );
 };
 
-export default Employees;
+export default Income;
