@@ -16,18 +16,23 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
-import { Header } from "../components";
+import { Header, ExpenseDialog } from "../components";
 
-const Orders = () => {
+const Expenses = () => {
   return (
-    <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Orders"></Header>
+    <div className="m-2 mt-10 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
+      <div className="flex justify-between mt-12 md:mt-3">
+        <Header category="Page" title="Expenses" />
+        <ExpenseDialog />
+      </div>
+
       <GridComponent
         id="gridcomp"
         dataSource={ordersData}
         allowPaging
         allowSorting
-        toolbar={["Search"]}
+        editSettings={{ allowDeleting: true }}
+        toolbar={["Search", "Delete"]}
       >
         <ColumnsDirective>
           {ordersGrid.map((item, index) => (
@@ -42,4 +47,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Expenses;

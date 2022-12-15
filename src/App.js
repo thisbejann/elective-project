@@ -4,26 +4,12 @@ import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
-import {
-  Dashboard,
-  Orders,
-  Calendar,
-  Employees,
-  Stacked,
-  Pyramid,
-  Customers,
-  Kanban,
-  Area,
-  Bar,
-  Pie,
-  Financial,
-  ColorPicker,
-  ColorMapping,
-  Editor,
-  Line,
-} from "./pages";
+import { Dashboard, Expenses, Calendar, Income, Savings, Login } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
+
+import { auth } from "./utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import "./App.css";
 
@@ -31,23 +17,28 @@ const App = () => {
   const { currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } =
     useStateContext();
 
+  const [user, loading] = useAuthState(auth);
+
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
-          <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-            <TooltipComponent content="Settings" position="Top">
-              <button
-                type="button"
-                className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
-                style={{ background: currentColor, borderRadius: "50%" }}
-                onClick={() => setThemeSettings(true)}
-              >
-                <FiSettings />
-              </button>
-            </TooltipComponent>
-          </div>
-          {activeMenu ? (
+          {user && (
+            <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
+              <TooltipComponent content="Settings" position="TopCenter">
+                <button
+                  type="button"
+                  className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+                  style={{ background: currentColor, borderRadius: "50%" }}
+                  onClick={() => setThemeSettings(true)}
+                >
+                  <FiSettings />
+                </button>
+              </TooltipComponent>
+            </div>
+          )}
+
+          {user && activeMenu ? (
             <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
               <Sidebar />
             </div>
@@ -58,41 +49,31 @@ const App = () => {
           )}
           <div
             className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
-              activeMenu ? "md:ml-72" : "flex-2"
+              user && activeMenu ? "md:ml-72" : "flex-2"
             }`}
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
-              <Navbar />
-            </div>
+            {user && (
+              <div className="fixed md:static  bg-main-bg dark:bg-main-dark-bg p-2  w-full">
+                <Navbar />
+              </div>
+            )}
 
             <div>
               {themeSettings && <ThemeSettings />}
 
               <Routes>
                 {/* Dashboard */}
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/auth/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
 
                 {/* Pages */}
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/employees" element={<Employees />} />
-                <Route path="/customers" element={<Customers />} />
+                <Route path="/expenses" element={<Expenses />} />
+                <Route path="/income" element={<Income />} />
+                <Route path="/savings" element={<Savings />} />
 
                 {/* Apps */}
-                <Route path="/kanban" element={<Kanban />} />
-                <Route path="/editor" element={<Editor />} />
                 <Route path="/calendar" element={<Calendar />} />
-                <Route path="/color-picker" element={<ColorPicker />} />
-
-                {/* Charts */}
-                <Route path="/line" element={<Line />} />
-                <Route path="/area" element={<Area />} />
-                <Route path="/bar" element={<Bar />} />
-                <Route path="/pie" element={<Pie />} />
-                <Route path="/financial" element={<Financial />} />
-                <Route path="/color-mapping" element={<ColorMapping />} />
-                <Route path="/pyramid" element={<Pyramid />} />
-                <Route path="/stacked" element={<Stacked />} />
               </Routes>
             </div>
           </div>

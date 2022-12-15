@@ -10,6 +10,9 @@ import avatar from "../data/avatar.jpg";
 import { Cart, Chat, Notification, UserProfile } from ".";
 import { useStateContext } from "../contexts/ContextProvider";
 
+import { auth } from "../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
     <button
@@ -28,6 +31,8 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 );
 
 const Navbar = () => {
+  const [user, loading] = useAuthState(auth);
+
   const {
     activeMenu,
     setActiveMenu,
@@ -72,10 +77,10 @@ const Navbar = () => {
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
             onClick={() => handleClick("userProfile")}
           >
-            <img src={avatar} className="rounded-full w-8 h-8" />
+            <img src={user.photoURL} className="rounded-full w-8 h-8" />
             <p>
               <span className="text-gray-400 text-14">Hi, </span> {""}
-              <span className="text-gray-400 font-bold ml-1 text-14">Michael</span>
+              <span className="text-gray-400 font-bold ml-1 text-14">{user.displayName}</span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>

@@ -15,7 +15,7 @@ import {
 import { customersData, customersGrid } from "../data/dummy";
 import { Header } from "../components";
 
-const Customers = () => {
+const Savings = () => {
   return (
     <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
       <Header category="Customers" title="Customers" />
@@ -38,4 +38,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default Savings;
