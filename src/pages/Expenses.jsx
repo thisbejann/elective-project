@@ -31,7 +31,8 @@ const Expenses = () => {
         dataSource={ordersData}
         allowPaging
         allowSorting
-        toolbar={["Search"]}
+        editSettings={{ allowDeleting: true }}
+        toolbar={["Search", "Delete"]}
       >
         <ColumnsDirective>
           {ordersGrid.map((item, index) => (

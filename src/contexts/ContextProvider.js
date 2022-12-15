@@ -16,7 +16,7 @@ export const ContextProvider = ({ children }) => {
 
   const [expense, setExpense] = useState({
     transaction: "",
-    calendar: {},
+    calendar: "",
     category: "",
     amount: "",
     description: "",

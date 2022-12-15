@@ -3,3 +3,4 @@ export { default as Expenses } from "./Expenses";
 export { default as Income } from "./Income";
 export { default as Savings } from "./Savings";
 export { default as Calendar } from "./Calendar";
+export { default as Login } from "./auth/Login";

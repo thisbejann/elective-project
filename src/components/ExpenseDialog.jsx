@@ -31,6 +31,7 @@ const ExpenseDialog = () => {
       : cardRef.current.value;
     //format syncfusion datepicker value to yyyy-mm-dd
     const dateValue = dateRef.current.value.toString().split(" ").slice(1, 4).join("-");
+
     const amountValue = amountRef.current.value;
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
