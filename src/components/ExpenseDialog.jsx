@@ -6,17 +6,15 @@ import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import { useStateContext } from "../contexts/ContextProvider";
 
-const ExpenseDialog = () => {
-  const { currentColor, handleChange, values, inputAmount, expense, setExpense } =
-    useStateContext();
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-  // const [visibility, setDialogVisibility] = useState(false);
-  // const dialogClose = () => {
-  //   setDialogVisibility(false);
-  // };
-  // const dialogClick = () => {
-  //   setDialogVisibility(true);
-  // };
+const ExpenseDialog = () => {
+  const { currentColor, handleChange, values, inputAmount } = useStateContext();
+
+  const [user, loading] = useAuthState(auth);
+
   const cashRef = useRef();
   const cardRef = useRef();
   const dateRef = useRef();
@@ -24,8 +22,9 @@ const ExpenseDialog = () => {
   const descriptionRef = useRef();
   const categoryRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value
       : cardRef.current.value;
@@ -36,29 +35,34 @@ const ExpenseDialog = () => {
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
 
+    const expenseObject = [
+      { transactionValue, dateValue, amountValue, descriptionValue, categoryValue },
+    ];
+
     if (
       !validator.isEmpty(
         transactionValue || dateValue || amountValue || descriptionValue || categoryValue
       )
     ) {
-      setExpense([
-        {
-          transaction: transactionValue,
-          date: dateValue,
-          amount: amountValue,
-          description: descriptionValue,
-          category: categoryValue,
-        },
-      ]);
     }
+
+    // make a firestore collection
+    const expenseRef = collection(db, "expenses");
+    await addDoc(expenseRef, {
+      ...expenseObject,
+      timestamp: serverTimestamp(),
+      user: user.uid,
+      avatar: user.photoURL,
+      name: user.displayName,
+    });
+
     categoryRef.current.value = "";
     amountRef.current.value = "";
-    dateRef.current.value = "";
     descriptionRef.current.value = "";
     categoryRef.current.value = "";
-  };
 
-  console.log(expense);
+    console.log(expenseObject);
+  };
 
   const dateValue = new Date();
 
@@ -111,6 +115,7 @@ const ExpenseDialog = () => {
                   placeholder="Enter Date"
                   floatLabelType="Always"
                   name="calendar"
+                  required
                 />
               </div>
               <div className="form-control flex flex-row gap-5">
@@ -122,6 +127,7 @@ const ExpenseDialog = () => {
                     ref={categoryRef}
                     className="select select-bordered w-full"
                     name="category"
+                    required
                   >
                     <option value="Bills">Bills</option>
                     <option value="Transportation">Transportation</option>
@@ -135,10 +141,12 @@ const ExpenseDialog = () => {
                   </label>
                   <input
                     ref={amountRef}
-                    type="text"
+                    type="number"
+                    min="1"
                     // value={expense.amount}
                     name="amount"
                     className="input input-bordered w-full"
+                    required
                   />
                 </div>
               </div>
@@ -153,6 +161,7 @@ const ExpenseDialog = () => {
                     // value={values.description}
                     name="description"
                     className="input input-bordered w-full"
+                    required
                   />
                 </div>
               </div>

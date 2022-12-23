@@ -407,6 +407,7 @@ export const customersGrid = [
 ];
 
 export const employeesGrid = [
+  { type: "checkbox", width: "50" },
   { headerText: "Employee", width: "150", template: gridEmployeeProfile, textAlign: "Center" },
   { field: "Name", headerText: "", width: "0", textAlign: "Center" },
   { field: "Title", headerText: "Designation", width: "170", textAlign: "Center" },
