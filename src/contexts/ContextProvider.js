@@ -14,22 +14,6 @@ export const ContextProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
 
-  const [expense, setExpense] = useState({
-    transaction: "",
-    calendar: "",
-    category: "",
-    amount: "",
-    description: "",
-  });
-
-  const [income, setIncome] = useState({
-    transaction: "",
-    calendar: "",
-    category: "",
-    amount: "",
-    description: "",
-  });
-
   // const handleChange = (event) => {
   //   setValues({ ...values, [event.target.name]: event.target.value });
   // };
@@ -55,10 +39,6 @@ export const ContextProvider = ({ children }) => {
   return (
     <StateContext.Provider
       value={{
-        income,
-        setIncome,
-        expense,
-        setExpense,
         activeMenu,
         setActiveMenu,
         isClicked,
