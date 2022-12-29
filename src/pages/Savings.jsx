@@ -12,7 +12,7 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 
-import { customersData, customersGrid } from "../data/dummy";
+import { customersData, savingsGrid } from "../data/dummy";
 import { Header } from "../components";
 
 import { auth } from "../utils/firebase";
@@ -44,7 +44,7 @@ const Savings = () => {
         editSettings={{ allowDeleting: true, allowEditing: true }}
       >
         <ColumnsDirective>
-          {customersGrid.map((item, index) => (
+          {savingsGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
