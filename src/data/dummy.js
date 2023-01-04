@@ -374,7 +374,7 @@ export const LinePrimaryYAxis = {
   minorTickLines: { width: 0 },
 };
 
-export const customersGrid = [
+export const savingsGrid = [
   { type: "checkbox", width: "50" },
   { headerText: "Name", width: "150", template: customerGridImage, textAlign: "Center" },
   { field: "ProjectName", headerText: "Project Name", width: "150", textAlign: "Center" },
@@ -406,7 +406,7 @@ export const customersGrid = [
   },
 ];
 
-export const employeesGrid = [
+export const incomeGrid = [
   { type: "checkbox", width: "50" },
   { headerText: "Employee", width: "150", template: gridEmployeeProfile, textAlign: "Center" },
   { field: "Name", headerText: "", width: "0", textAlign: "Center" },
@@ -754,7 +754,8 @@ export const userProfileData = [
   },
 ];
 
-export const ordersGrid = [
+export const expenseGrid = [
+  { type: "checkbox", width: "50" },
   {
     field: "transactionValue",
     headerText: "Transaction",

@@ -15,7 +15,7 @@ import {
   Search,
 } from "@syncfusion/ej2-react-grids";
 
-import { ordersData, contextMenuItems, ordersGrid } from "../data/dummy";
+import { ordersData, contextMenuItems, expenseGrid } from "../data/dummy";
 import { Header, ExpenseDialog } from "../components";
 
 import { auth, db } from "../utils/firebase";
@@ -78,7 +78,7 @@ const Expenses = () => {
         toolbar={["Search", "Delete"]}
       >
         <ColumnsDirective>
-          {ordersGrid.map((item, index) => (
+          {expenseGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
