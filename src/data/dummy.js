@@ -756,45 +756,32 @@ export const userProfileData = [
 
 export const ordersGrid = [
   {
-    headerText: "Image",
-    template: gridOrderImage,
-    textAlign: "Center",
-    width: "120",
-  },
-  {
-    field: "OrderItems",
-    headerText: "Item",
+    field: "transactionValue",
+    headerText: "Transaction",
     width: "150",
     editType: "dropdownedit",
     textAlign: "Center",
   },
-  { field: "CustomerName", headerText: "Customer Name", width: "150", textAlign: "Center" },
+  { field: "dateValue", headerText: "Date", width: "150", textAlign: "Center" },
   {
-    field: "TotalAmount",
-    headerText: "Total Amount",
+    field: "amountValue",
+    headerText: "Amount",
     format: "C2",
     textAlign: "Center",
     editType: "numericedit",
     width: "150",
   },
   {
-    headerText: "Status",
-    template: gridOrderStatus,
-    field: "OrderItems",
+    field: "descriptionValue",
+    headerText: "Description",
+    // template: gridOrderStatus,
     textAlign: "Center",
     width: "120",
   },
   {
-    field: "OrderID",
-    headerText: "Order ID",
+    field: "categoryValue",
+    headerText: "Category",
     width: "120",
-    textAlign: "Center",
-  },
-
-  {
-    field: "Location",
-    headerText: "Location",
-    width: "150",
     textAlign: "Center",
   },
 ];
