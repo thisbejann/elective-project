@@ -2,9 +2,9 @@ import React, { createContext, useContext, useState, useRef } from "react";
 
 const StateContext = createContext();
 
-const initialState = {
-  userProfile: false,
-};
+// const initialState = {
+//   userProfile: false,
+// };
 
 export const ContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }) => {
   const [currentMode, setCurrentMode] = useState("Light");
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
-  const [isClicked, setIsClicked] = useState(initialState);
+  const [isClicked, setIsClicked] = useState(false);
 
   // const handleChange = (event) => {
   //   setValues({ ...values, [event.target.name]: event.target.value });
@@ -34,7 +34,7 @@ export const ContextProvider = ({ children }) => {
     setThemeSettings(false);
   };
 
-  const handleClick = (clicked) => setIsClicked({ ...initialState, [clicked]: true });
+  // const handleClick = (clicked) => setIsClicked({ userProfile: !clicked });
 
   return (
     <StateContext.Provider
@@ -43,7 +43,7 @@ export const ContextProvider = ({ children }) => {
         setActiveMenu,
         isClicked,
         setIsClicked,
-        handleClick,
+        // handleClick,
         screenSize,
         setScreenSize,
         currentColor,
@@ -52,7 +52,7 @@ export const ContextProvider = ({ children }) => {
         setThemeSettings,
         setMode,
         setColor,
-        initialState,
+        // initialState,
       }}
     >
       {children}

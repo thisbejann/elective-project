@@ -7,9 +7,13 @@ import {
   Search,
   Inject,
   Toolbar,
+  Edit,
+  Selection,
+  Sort, 
+  Filter
 } from "@syncfusion/ej2-react-grids";
 
-import { employeesData, employeesGrid } from "../data/dummy";
+import { employeesData, incomeGrid } from "../data/dummy";
 import { Header, IncomeDialog } from "../components";
 
 import { auth } from "../utils/firebase";
@@ -40,15 +44,16 @@ const Income = () => {
         dataSource={employeesData}
         allowPaging
         allowSorting
-        toolbar={["Search"]}
+        toolbar={["Search","Delete"]}
         width="auto"
+        editSettings={{ allowDeleting: true, allowEditing: true }}
       >
         <ColumnsDirective>
-          {employeesGrid.map((item, index) => (
+          {incomeGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} />
           ))}
         </ColumnsDirective>
-        <Inject services={[Page, Search, Toolbar]} />
+        <Inject services={[Page, Search, Toolbar,Edit, Selection, Sort, Filter]} />
       </GridComponent>
     </div>
   );

@@ -35,10 +35,13 @@ const ExpenseDialog = () => {
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
 
-    const expenseObject = [
-      { transactionValue, dateValue, amountValue, descriptionValue, categoryValue },
-    ];
-
+    const expenseObject = {
+      transactionValue,
+      dateValue,
+      amountValue,
+      descriptionValue,
+      categoryValue,
+    };
     if (
       !validator.isEmpty(
         transactionValue || dateValue || amountValue || descriptionValue || categoryValue
@@ -49,7 +52,7 @@ const ExpenseDialog = () => {
     // make a firestore collection
     const expenseRef = collection(db, "expenses");
     await addDoc(expenseRef, {
-      ...expenseObject,
+      expenses: { ...expenseObject },
       timestamp: serverTimestamp(),
       user: user.uid,
       avatar: user.photoURL,

@@ -374,7 +374,7 @@ export const LinePrimaryYAxis = {
   minorTickLines: { width: 0 },
 };
 
-export const customersGrid = [
+export const savingsGrid = [
   { type: "checkbox", width: "50" },
   { headerText: "Name", width: "150", template: customerGridImage, textAlign: "Center" },
   { field: "ProjectName", headerText: "Project Name", width: "150", textAlign: "Center" },
@@ -406,7 +406,7 @@ export const customersGrid = [
   },
 ];
 
-export const employeesGrid = [
+export const incomeGrid = [
   { type: "checkbox", width: "50" },
   { headerText: "Employee", width: "150", template: gridEmployeeProfile, textAlign: "Center" },
   { field: "Name", headerText: "", width: "0", textAlign: "Center" },
@@ -754,47 +754,35 @@ export const userProfileData = [
   },
 ];
 
-export const ordersGrid = [
+export const expenseGrid = [
+  { type: "checkbox", width: "50" },
   {
-    headerText: "Image",
-    template: gridOrderImage,
-    textAlign: "Center",
-    width: "120",
-  },
-  {
-    field: "OrderItems",
-    headerText: "Item",
+    field: "transactionValue",
+    headerText: "Transaction",
     width: "150",
     editType: "dropdownedit",
     textAlign: "Center",
   },
-  { field: "CustomerName", headerText: "Customer Name", width: "150", textAlign: "Center" },
+  { field: "dateValue", headerText: "Date", width: "150", textAlign: "Center" },
   {
-    field: "TotalAmount",
-    headerText: "Total Amount",
+    field: "amountValue",
+    headerText: "Amount",
     format: "C2",
     textAlign: "Center",
     editType: "numericedit",
     width: "150",
   },
   {
-    headerText: "Status",
-    template: gridOrderStatus,
-    field: "OrderItems",
+    field: "descriptionValue",
+    headerText: "Description",
+    // template: gridOrderStatus,
     textAlign: "Center",
     width: "120",
   },
   {
-    field: "OrderID",
-    headerText: "Order ID",
+    field: "categoryValue",
+    headerText: "Category",
     width: "120",
-    textAlign: "Center",
-  },
-
-  {
-    field: "Location",
-    headerText: "Location",
-    width: "150",
     textAlign: "Center",
   },
 ];

@@ -37,6 +37,7 @@ const Navbar = () => {
     activeMenu,
     setActiveMenu,
     isClicked,
+    setIsClicked,
     handleClick,
     screenSize,
     setScreenSize,
@@ -75,7 +76,7 @@ const Navbar = () => {
         <TooltipComponent content="Profile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => handleClick("userProfile")}
+            onClick={() => setIsClicked(!isClicked)}
           >
             <img src={user.photoURL} className="rounded-full w-8 h-8" />
             <p>
@@ -86,7 +87,7 @@ const Navbar = () => {
           </div>
         </TooltipComponent>
 
-        {isClicked.userProfile && <UserProfile />}
+        {isClicked && <UserProfile />}
       </div>
     </div>
   );
