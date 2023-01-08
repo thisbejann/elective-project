@@ -15,3 +15,4 @@ export { default as ChartsHeader } from "./ChartsHeader";
 export { default as Header } from "./Header";
 export { default as ExpenseDialog } from "./ExpenseDialog";
 export { default as IncomeDialog } from "./IncomeDialog";
+export { default as SavingsDialog } from "./SavingsDialog";

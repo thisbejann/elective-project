@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   GridComponent,
   ColumnsDirective,
@@ -13,19 +13,31 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { customersData, savingsGrid } from "../data/dummy";
-import { Header } from "../components";
+import { Header, SavingsDialog } from "../components";
 
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
+
+import { useStateContext } from "../contexts/ContextProvider";
 
 const Savings = () => {
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
+  const [userSavings, setUserSavings] = useState([]);
+  const { isClicked } = useStateContext();
 
   const getData = async () => {
     if (loading) return;
     if (!user) return navigate("/auth/login");
+
+    const collectionRef = collection(db, "savings");
+    const q = query(collectionRef, where("user", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setUserSavings(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return unsubscribe;
   };
 
   useEffect(() => {
@@ -33,10 +45,24 @@ const Savings = () => {
   }, [user, loading]);
 
   return (
-    <div className="m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Customers" title="Customers" />
+    <div
+      className={`m-2 mt-10 md:m-10 p-2 md:p-10 bg-white rounded-3xl ${
+        isClicked ? "hidden sm:block" : ""
+      }`}
+    >
+      <div className="flex justify-between mt-12 md:mt-3">
+        <Header category="Page" title="Savings" />
+        <SavingsDialog />
+      </div>
+
       <GridComponent
-        dataSource={customersData}
+        dataSource={userSavings.map((item) => ({
+          amountValue: item.savings.amountValue,
+          dateValue: item.savings.dateValue,
+          categoryValue: item.savings.categoryValue,
+          descriptionValue: item.savings.descriptionValue,
+          transactionValue: item.savings.transactionValue,
+        }))}
         allowPaging
         allowSorting
         toolbar={["Delete"]}
