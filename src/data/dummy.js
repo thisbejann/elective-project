@@ -409,15 +409,35 @@ export const savingsGrid = [
 
 export const incomeGrid = [
   { type: "checkbox", width: "50" },
-  { headerText: "Employee", width: "150", template: gridEmployeeProfile, textAlign: "Center" },
-  { field: "Name", headerText: "", width: "0", textAlign: "Center" },
-  { field: "Title", headerText: "Designation", width: "170", textAlign: "Center" },
-  { headerText: "Country", width: "120", textAlign: "Center", template: gridEmployeeCountry },
-
-  { field: "HireDate", headerText: "Hire Date", width: "135", format: "yMd", textAlign: "Center" },
-
-  { field: "ReportsTo", headerText: "Reports To", width: "120", textAlign: "Center" },
-  { field: "EmployeeID", headerText: "Employee ID", width: "125", textAlign: "Center" },
+  {
+    field: "transactionValue",
+    headerText: "Transaction",
+    width: "150",
+    editType: "dropdownedit",
+    textAlign: "Center",
+  },
+  { field: "dateValue", headerText: "Date", width: "150", textAlign: "Center" },
+  {
+    field: "amountValue",
+    headerText: "Amount",
+    format: "C2",
+    textAlign: "Center",
+    editType: "numericedit",
+    width: "150",
+  },
+  {
+    field: "descriptionValue",
+    headerText: "Description",
+    // template: gridOrderStatus,
+    textAlign: "Center",
+    width: "120",
+  },
+  {
+    field: "categoryValue",
+    headerText: "Category",
+    width: "120",
+    textAlign: "Center",
+  },
 ];
 
 export const links = [

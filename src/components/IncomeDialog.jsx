@@ -6,16 +6,15 @@ import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import { useStateContext } from "../contexts/ContextProvider";
 
-const TransactDialog = () => {
-  const { currentColor, handleChange, values, inputAmount, income, setIncome } = useStateContext();
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-  // const [visibility, setDialogVisibility] = useState(false);
-  // const dialogClose = () => {
-  //   setDialogVisibility(false);
-  // };
-  // const dialogClick = () => {
-  //   setDialogVisibility(true);
-  // };
+const IncomeDialog = () => {
+  const { currentColor, handleChange, values, inputAmount } = useStateContext();
+
+  const [user, loading] = useAuthState(auth);
+
   const cashRef = useRef();
   const cardRef = useRef();
   const dateRef = useRef();
@@ -23,8 +22,9 @@ const TransactDialog = () => {
   const descriptionRef = useRef();
   const categoryRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value
       : cardRef.current.value;
@@ -34,29 +34,36 @@ const TransactDialog = () => {
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
 
+    const incomeObject = {
+      transactionValue,
+      dateValue,
+      amountValue,
+      descriptionValue,
+      categoryValue,
+    };
     if (
       !validator.isEmpty(
         transactionValue || dateValue || amountValue || descriptionValue || categoryValue
       )
     ) {
-      setIncome([
-        {
-          transaction: transactionValue,
-          date: dateValue,
-          amount: amountValue,
-          description: descriptionValue,
-          category: categoryValue,
-        },
-      ]);
     }
+      // make a firestore collection
+    const incomeRef = collection(db, "income");
+    await addDoc(incomeRef, {
+      income: { ...incomeObject },
+      timestamp: serverTimestamp(),
+      user: user.uid,
+      avatar: user.photoURL,
+      name: user.displayName,
+    });
+
     categoryRef.current.value = "";
     amountRef.current.value = "";
-    dateRef.current.value = "";
     descriptionRef.current.value = "";
     categoryRef.current.value = "";
-  };
 
-  console.log(income);
+    console.log(incomeObject);
+  };
 
   const dateValue = new Date();
 
@@ -170,4 +177,4 @@ const TransactDialog = () => {
   );
 };
 
-export default TransactDialog;
+export default IncomeDialog;
