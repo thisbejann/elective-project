@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useState, useRef, useEffect } from "react";
 
 import validator from "validator";
 
@@ -10,8 +10,12 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const ExpenseDialog = () => {
   const { currentColor, handleChange, values, inputAmount } = useStateContext();
+  const navigate = useNavigate();
 
   const [user, loading] = useAuthState(auth);
 
@@ -24,6 +28,12 @@ const ExpenseDialog = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // add toast if user successfully submitted
+    toast.success("Transaction added successfully", {
+      position: "top-center",
+      autoClose: 1500,
+    });
 
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value

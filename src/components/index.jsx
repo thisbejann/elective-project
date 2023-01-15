@@ -16,3 +16,5 @@ export { default as Header } from "./Header";
 export { default as ExpenseDialog } from "./ExpenseDialog";
 export { default as IncomeDialog } from "./IncomeDialog";
 export { default as SavingsDialog } from "./SavingsDialog";
+export { default as Table } from "./Table";
+export { default as ExpenseEditForm } from "./ExpenseEditForm";

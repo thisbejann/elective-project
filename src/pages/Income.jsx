@@ -16,7 +16,7 @@ import {
 } from "@syncfusion/ej2-react-grids";
 
 import { employeesData, contextMenuItems, incomeGrid } from "../data/dummy";
-import { Header, IncomeDialog } from "../components";
+import { Header, IncomeDialog, Table } from "../components";
 
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -44,12 +44,9 @@ const Income = () => {
     return unsubscribe;
   };
 
-  console.log(userIncome);
   useEffect(() => {
     getData();
   }, [user, loading]);
-
-  console.log(isClicked);
 
   return (
     <div
@@ -62,30 +59,7 @@ const Income = () => {
         <IncomeDialog />
       </div>
 
-      <GridComponent
-        id="gridcomp"
-        // datasource are the incomes that are fetched from the database and stored in the userExpenses state and then mapped to the grid. only the amountValue, dateValue, categoryValue, descriptionValue, and transactionValue are mapped to the grid.
-        dataSource={userIncome.map((item) => ({
-          amountValue: item.income.amountValue,
-          dateValue: item.income.dateValue,
-          categoryValue: item.income.categoryValue,
-          descriptionValue: item.income.descriptionValue,
-          transactionValue: item.income.transactionValue,
-        }))}
-        allowPaging
-        allowSorting
-        editSettings={{ allowDeleting: true }}
-        toolbar={["Search", "Delete"]}
-      >
-        <ColumnsDirective>
-          {incomeGrid.map((item, index) => (
-            <ColumnDirective key={index} {...item} />
-          ))}
-        </ColumnsDirective>
-        <Inject 
-          services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Edit, Search]} 
-        />
-      </GridComponent>
+      <Table userData={userIncome} />
     </div>
   );
 };

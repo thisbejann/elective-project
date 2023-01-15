@@ -3,13 +3,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
-import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import {
+  Navbar,
+  Footer,
+  Sidebar,
+  ThemeSettings,
+  ExpenseDialog,
+  ExpenseEditForm,
+} from "./components";
 import { Dashboard, Expenses, Calendar, Income, Savings, Login } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
 import { auth } from "./utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./App.css";
 
@@ -22,6 +32,7 @@ const App = () => {
   return (
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
+        <ToastContainer limit={1} />
         <div className="flex relative dark:bg-main-dark-bg">
           {user && (
             <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
@@ -71,6 +82,8 @@ const App = () => {
                 <Route path="/expenses" element={<Expenses />} />
                 <Route path="/income" element={<Income />} />
                 <Route path="/savings" element={<Savings />} />
+                <Route path="/edit/:id" element={<ExpenseEditForm />} />
+                <Route path="/add" element={<ExpenseEditForm />} />
 
                 {/* Apps */}
                 <Route path="/calendar" element={<Calendar />} />
