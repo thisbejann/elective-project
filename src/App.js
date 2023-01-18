@@ -24,7 +24,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 const App = () => {
-  const { currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } =
+  const { currentMode, activeMenu, currentColor, themeSettings, setThemeSettings, userExpenses } =
     useStateContext();
 
   const [user, loading] = useAuthState(auth);
@@ -82,8 +82,8 @@ const App = () => {
                 <Route path="/expenses" element={<Expenses />} />
                 <Route path="/income" element={<Income />} />
                 <Route path="/savings" element={<Savings />} />
-                <Route path="/edit/:id" element={<ExpenseEditForm />} />
-                <Route path="/add" element={<ExpenseEditForm />} />
+                {/* <Route path="/edit/:id" element={<ExpenseEditForm data={userExpenses} />} />
+                <Route path="/add" element={<ExpenseEditForm />} /> */}
 
                 {/* Apps */}
                 <Route path="/calendar" element={<Calendar />} />

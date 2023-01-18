@@ -4,9 +4,8 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { toast } from "react-toastify";
-import { ExpenseDialog } from "./";
 
-const Table = ({ userData, query }) => {
+const Table = ({ userData }) => {
   const { currentColor } = useStateContext();
 
   const deleteData = async (id) => {
@@ -44,7 +43,6 @@ const Table = ({ userData, query }) => {
             <th className="text-center">Amount</th>
             <th className="text-center">Description</th>
             <th className="text-center">Category</th>
-            <th className="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -74,7 +72,7 @@ const Table = ({ userData, query }) => {
                   data.income?.categoryValue}
               </td>
               <td>
-                <Link to={`/edit/${data.id}`}>
+                {/* <Link to={`/edit/${data.id}`}>
                   <label
                     htmlFor="my-modal-3"
                     className="btn border-none"
@@ -82,7 +80,7 @@ const Table = ({ userData, query }) => {
                   >
                     Edit
                   </label>
-                </Link>
+                </Link> */}
 
                 <button
                   className="btn border-none"

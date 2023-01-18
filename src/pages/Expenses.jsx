@@ -29,8 +29,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 const Expenses = () => {
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
-  const [userExpenses, setUserExpense] = useState([]);
-  const { isClicked, currentColor } = useStateContext();
+  const { isClicked, currentColor, userExpenses, setUserExpenses } = useStateContext();
 
   const getData = async () => {
     if (loading) return;
@@ -39,7 +38,7 @@ const Expenses = () => {
     const collectionRef = collection(db, "expenses");
     const q = query(collectionRef, where("user", "==", user.uid), orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setUserExpense(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setUserExpenses(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
 
     return unsubscribe;
@@ -57,18 +56,7 @@ const Expenses = () => {
     >
       <div className="flex justify-between mt-12 md:mt-3">
         <Header category="Page" title="Expenses" />
-        {/* <ExpenseDialog /> */}
-        <div>
-          <Link to="/add">
-            <label
-              htmlFor="my-modal-3"
-              className="btn border-none"
-              style={{ color: "white", backgroundColor: currentColor }}
-            >
-              Add Transaction
-            </label>
-          </Link>
-        </div>
+        <ExpenseDialog />
       </div>
       <div className="flex justify-center">
         <Table userData={userExpenses} query={userExpenses} />
