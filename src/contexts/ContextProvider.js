@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useRef } from "react";
+import React, { createContext, useContext, useState, useRef, useEffect } from "react";
 
 const StateContext = createContext();
 
@@ -13,10 +13,23 @@ export const ContextProvider = ({ children }) => {
   const [themeSettings, setThemeSettings] = useState(false);
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
-
+  const [userExpenses, setUserExpenses] = useState([]);
   // const handleChange = (event) => {
   //   setValues({ ...values, [event.target.name]: event.target.value });
   // };
+
+  useEffect(() => {
+    const themeMode = localStorage.getItem("themeMode");
+    const colorMode = localStorage.getItem("colorMode");
+
+    if (themeMode) {
+      setCurrentMode(themeMode);
+    }
+
+    if (colorMode) {
+      setCurrentColor(colorMode);
+    }
+  }, []);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -52,6 +65,8 @@ export const ContextProvider = ({ children }) => {
         setThemeSettings,
         setMode,
         setColor,
+        userExpenses,
+        setUserExpenses,
         // initialState,
       }}
     >

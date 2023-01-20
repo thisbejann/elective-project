@@ -23,11 +23,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const ExpenseDialog = () => {
+const ExpenseDialog = ({ data }) => {
   const { currentColor, isClicked } = useStateContext();
-  const navigate = useNavigate();
-
   const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const cashRef = useRef();
   const cardRef = useRef();
@@ -35,6 +34,10 @@ const ExpenseDialog = () => {
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
+
+  const onChange = (e) => {
+    setAmount(e.target.value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -83,7 +86,6 @@ const ExpenseDialog = () => {
     descriptionRef.current.value = "";
     categoryRef.current.value = "";
 
-    console.log(expenseObject);
     return navigate("/expenses");
   };
 
@@ -165,7 +167,6 @@ const ExpenseDialog = () => {
                   ref={amountRef}
                   type="number"
                   min="1"
-                  // value={expense.amount}
                   name="amount"
                   className="input input-bordered w-full"
                   required
@@ -180,7 +181,6 @@ const ExpenseDialog = () => {
                 <input
                   ref={descriptionRef}
                   type="text"
-                  // value={values.description}
                   name="description"
                   className="input input-bordered w-full"
                   required

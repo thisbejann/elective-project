@@ -41,7 +41,7 @@ const ExpenseDialog = () => {
     //format syncfusion datepicker value to yyyy-mm-dd
     const dateValue = dateRef.current.value.toString().split(" ").slice(1, 4).join("-");
 
-    const amountValue = amountRef.current.value;
+    const amountValue = parseInt(amountRef.current.value);
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
 
@@ -83,7 +83,7 @@ const ExpenseDialog = () => {
     <div>
       <label
         htmlFor="my-modal-3"
-        className="btn border-none"
+        className="btn border-none outline-none rounded-2xl "
         style={{ color: "white", backgroundColor: currentColor }}
       >
         Add Transaction
