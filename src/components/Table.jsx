@@ -23,8 +23,8 @@ const Table = ({ userData, filteredData }) => {
           position: "top-center",
           autoClose: 1500,
         });
-      } else if (userData[0].income) {
-        await deleteDoc(doc(db, "income", id));
+      } else if (userData[0].incomes) {
+        await deleteDoc(doc(db, "incomes", id));
         toast.success("Income deleted successfully", {
           position: "top-center",
           autoClose: 1500,
@@ -57,25 +57,25 @@ const Table = ({ userData, filteredData }) => {
                 <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
                   {data.expenses?.categoryValue ||
                     data.savings?.categoryValue ||
-                    data.income?.categoryValue}
+                    data.incomes?.categoryValue}
                 </td>
                 <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
                   {data.expenses?.amountValue ||
                     data.savings?.amountValue ||
-                    data.income?.amountValue}
+                    data.incomes?.amountValue}
                 </td>
                 <td className="p-3 text-sm text-center text-gray-700 whitespace-nowrap">
                   {data.expenses?.transactionValue ||
                     data.savings?.transactionValue ||
-                    data.income?.transactionValue}
+                    data.incomes?.transactionValue}
                 </td>
                 <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
-                  {data.expenses?.dateValue || data.savings?.dateValue || data.income?.dateValue}
+                  {data.expenses?.dateValue || data.savings?.dateValue || data.incomes?.dateValue}
                 </td>
                 <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
                   {data.expenses?.descriptionValue ||
                     data.savings?.descriptionValue ||
-                    data.income?.descriptionValue}
+                    data.incomes?.descriptionValue}
                 </td>
 
                 <td className="text-center text-sm  whitespace-nowrap">
@@ -90,10 +90,24 @@ const Table = ({ userData, filteredData }) => {
                 </Link> */}
 
                   <button
-                    className="btn border-none"
+                    className="btn btn-sm gap-[4px] border-none"
                     style={{ color: "white", backgroundColor: currentColor }}
                     onClick={() => deleteData(data.id)}
                   >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
                     Delete
                   </button>
                 </td>

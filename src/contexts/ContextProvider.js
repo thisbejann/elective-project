@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
   const [userExpenses, setUserExpenses] = useState([]);
+  const [userIncomes, setUserIncomes] = useState([]);
   // const handleChange = (event) => {
   //   setValues({ ...values, [event.target.name]: event.target.value });
   // };
@@ -67,6 +68,8 @@ export const ContextProvider = ({ children }) => {
         setColor,
         userExpenses,
         setUserExpenses,
+        userIncomes,
+        setUserIncomes,
         // initialState,
       }}
     >
