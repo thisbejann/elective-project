@@ -1,23 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Resize,
-  Sort,
-  ContextMenu,
-  Filter,
-  Page,
-  ExcelExport,
-  PdfExport,
-  Edit,
-  Inject,
-  Search,
-} from "@syncfusion/ej2-react-grids";
 
-import { ordersData, contextMenuItems, expenseGrid } from "../data/dummy";
 import { Header, ExpenseDialog, Table } from "../components";
-import { Link } from "react-router-dom";
 
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -101,7 +84,7 @@ const Expenses = () => {
 
   return (
     <div
-      className={`m-2 mt-10 md:m-10 p-2 md:p-10 bg-white rounded-3xl ${
+      className={`m-2 mt-10 md:m-10 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg ${
         isClicked ? "hidden sm:block" : ""
       }`}
     >
@@ -119,7 +102,7 @@ const Expenses = () => {
         </div>
       </div>
       <div className="flex justify-end mt-5 items-center">
-        <label>Sort By:</label>
+        <label className="dark:text-white">Sort By:</label>
         <select
           className="ring-2 text-center ring-gray-300 border-none rounded-2xl focus:ring-gray-500 focus:ring-2 outline-none h-[3rem] mx-3"
           name="sortBy"
@@ -143,7 +126,7 @@ const Expenses = () => {
           Reset
         </button> */}
       </div>
-      <Table userData={userExpenses} filteredData={filteredItems} query={userExpenses} />
+      <Table userData={userExpenses} filteredData={filteredItems} />
     </div>
   );
 };

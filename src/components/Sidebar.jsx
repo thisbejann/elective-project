@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { SiShopware } from "react-icons/si";
+import { ReactComponent as Logo } from "../data/budgit-icon.svg";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
@@ -31,7 +31,8 @@ const Sidebar = () => {
               onClick={handleCloseSideBar}
               className="border-red-solid items-center gap-3 ml-3 mt-4 flex text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
             >
-              <SiShopware /> <span>Budg.it</span>
+              <Logo className="w-10 h-10" />
+              <span>Budg.it</span>
             </Link>
             <TooltipComponent content="Menu" position="BottomCenter">
               <button

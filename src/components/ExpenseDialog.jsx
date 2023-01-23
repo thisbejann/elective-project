@@ -10,12 +10,10 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ExpenseDialog = () => {
   const { currentColor, handleChange, values, inputAmount } = useStateContext();
-  const navigate = useNavigate();
 
   const [user, loading] = useAuthState(auth);
 
@@ -156,7 +154,6 @@ const ExpenseDialog = () => {
                     ref={amountRef}
                     type="number"
                     min="1"
-                    // value={expense.amount}
                     name="amount"
                     className="input input-bordered w-full"
                     required
@@ -171,7 +168,6 @@ const ExpenseDialog = () => {
                   <input
                     ref={descriptionRef}
                     type="text"
-                    // value={values.description}
                     name="description"
                     className="input input-bordered w-full"
                     required
