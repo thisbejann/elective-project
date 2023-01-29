@@ -7,9 +7,7 @@ import { ContextProvider } from "./contexts/ContextProvider";
 
 import { registerLicense } from "@syncfusion/ej2-base";
 
-registerLicense(
-  "ORg4AjUWIQA/Gnt2VVhjQlFac1lJXGFWfVJpTGpQdk5xdV9DaVZUTWY/P1ZhSXxRd0djW39ZcndVQ2heUEc="
-);
+registerLicense(process.env.REACT_APP_SYNCFUSION_LICENSE);
 
 ReactDOM.render(
   <ContextProvider>
