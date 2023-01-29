@@ -25,7 +25,6 @@ const Login = () => {
     if (user) {
       navigate("/dashboard");
     } else {
-      console.log("login");
     }
   }, [user]);
 
