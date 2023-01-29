@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BSCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
 import { Stacked, Pie, Button, SparkLine } from "../components";
 import { earningData, SparklineAreaData, ecomPieChartData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
-import { auth } from "../utils/firebase";
+import { auth, db } from "../utils/firebase";
+import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -14,14 +16,55 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
+  const [expenseData, setExpenseData] = useState([]);
+  const [incomeData, setIncomeData] = useState([]);
 
-  const getData = async () => {
+  // get all amountValue from Expenses and add them
+  const totalExpenses = expenseData.reduce((acc, curr) => {
+    return acc + curr.expenses.amountValue;
+  }, 0);
+
+  // get all amountValue from Incomes and add them
+  const totalIncomes = incomeData.reduce((acc, curr) => {
+    return acc + curr.incomes.amountValue;
+  }, 0);
+
+  // get all amountValue from Incomes and Expenses and add them
+  const totalBalance = totalIncomes - totalExpenses;
+
+  console.log(totalExpenses);
+  console.log(totalIncomes);
+  console.log(totalBalance);
+
+  const getExpenses = async () => {
     if (loading) return;
     if (!user) return navigate("/auth/login");
+
+    const collectionRef = collection(db, "expenses");
+    const q = query(collectionRef, where("user", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setExpenseData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    return unsubscribe;
+  };
+
+  const getIncomes = async () => {
+    if (loading) return;
+    if (!user) return navigate("/auth/login");
+
+    const collectionRef = collection(db, "incomes");
+    const q = query(collectionRef, where("user", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setIncomeData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    return unsubscribe;
   };
 
   useEffect(() => {
-    getData();
+    getExpenses();
+    getIncomes();
   }, [user, loading]);
 
   return (
@@ -30,32 +73,27 @@ const Dashboard = () => {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center flex justify-center text-2xl">
           <div className="flex justify-between items-center ">
             <div>
-              <p className="font-bold text-gray-400 text-center">Earnings</p>
-              <p className="text-2xl">$63,448.78</p>
+              <p className="font-bold text-gray-400 text-center">Total</p>
+              <p className="text-2xl">{`$${totalBalance}`}</p>
             </div>
           </div>
         </div>
 
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-          {earningData.map((item) => (
-            <div
-              key={item.title}
-              className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl"
-            >
-              <button
-                type="button"
-                style={{ color: item.iconColor, backgroundColor: item.iconBg }}
-                className="text-2xl opacity-0.9 rounded-full p-4 hover:drop-shadow-xl"
-              >
-                {item.icon}
-              </button>
-              <p className="mt-3">
-                <span className="text-lg font-semibold">{item.amount}</span>
-                <span className={`text-sm text-${item.pcColor} ml-2`}>{item.percentage}</span>
-              </p>
-              <p className="text-sm text-gray-400 mt-1">{item.title}</p>
-            </div>
-          ))}
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
+            <p className="mt-3">
+              <span className="text-lg font-semibold">{`$${totalExpenses}`}</span>
+            </p>
+            <p className="text-sm text-gray-400 mt-1">Total Expense</p>
+          </div>
+        </div>
+        <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
+          <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
+            <p className="mt-3">
+              <span className="text-lg font-semibold">{`$${totalIncomes}`}</span>
+            </p>
+            <p className="text-sm text-gray-400 mt-1">Total Income</p>
+          </div>
         </div>
       </div>
 
@@ -74,7 +112,7 @@ const Dashboard = () => {
                 <span>
                   <GoPrimitiveDot />
                 </span>
-                <span>Budget</span>
+                <span>Income</span>
               </p>
             </div>
           </div>
