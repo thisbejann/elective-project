@@ -15,13 +15,14 @@ const UserProfile = () => {
   const [user, loading] = useAuthState(auth);
 
   return (
-    <div className="nav-item absolute right-2/4 translate-x-2/4 md:right-1 md:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
+    <div className="nav-item shadow-md absolute right-2/4 translate-x-2/4 md:right-1 md:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
-          bgHoverColor="light-gray"
+          bgHoverColor="gray-100"
+          darkbgHoverColor="secondary-dark-bg"
           size="2xl"
           borderRadius="50%"
         />

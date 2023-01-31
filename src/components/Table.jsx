@@ -37,7 +37,7 @@ const Table = ({ userData, filteredData }) => {
     <div className="p-5 h-screen">
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full">
-          <thead className="bg-gray-500 text-white border-b-2 border-gray-200">
+          <thead className="dark:bg-main-dark-bg text-white bg-gray-500 border-b-2 border-gray-200">
             <tr>
               <th className="w-16 p-3 text-sm font-semibold tracking-wide text-center">Category</th>
               <th className="w-16 p-3 text-sm font-semibold tracking-wide text-center">Amount</th>
@@ -51,64 +51,60 @@ const Table = ({ userData, filteredData }) => {
               <th className="w-24 p-3 text-sm font-semibold tracking-wide text-center">Action</th>
             </tr>
           </thead>
-          <tbody className="[&>*:nth-child(odd)]:bg-white [&>*:nth-child(even)]:bg-gray-300 divide-y divide-gray-100">
+          <tbody className=" divide-y divide-gray-100]">
             {filteredData.map((data) => (
-              <tr key={data.id}>
-                <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
+              <tr
+                key={data.id}
+                className="odd:bg-white even:bg-[color:var(--some-color)] [&>*:last-child>button]:even:bg-white [&>*:last-child>button]:even:text-black [&>*:last-child>button]:odd:bg-[color:var(--some-color)] 
+                [&>*]:even:text-white [&>*]:odd:text-black"
+                style={{ "--some-color": currentColor }}
+              >
+                <td className="p-3 text-center text-sm  whitespace-nowrap">
                   {data.expenses?.categoryValue ||
                     data.savings?.categoryValue ||
                     data.incomes?.categoryValue}
                 </td>
-                <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
+                <td className="p-3 text-center text-sm  whitespace-nowrap">
                   {data.expenses?.amountValue ||
                     data.savings?.amountValue ||
                     data.incomes?.amountValue}
                 </td>
-                <td className="p-3 text-sm text-center text-gray-700 whitespace-nowrap">
+                <td className="p-3 text-sm text-center  whitespace-nowrap">
                   {data.expenses?.transactionValue ||
                     data.savings?.transactionValue ||
                     data.incomes?.transactionValue}
                 </td>
-                <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
+                <td className="p-3 text-center text-sm  whitespace-nowrap">
                   {data.expenses?.dateValue || data.savings?.dateValue || data.incomes?.dateValue}
                 </td>
-                <td className="p-3 text-center text-sm text-gray-700 whitespace-nowrap">
+                <td className="p-3 text-center text-sm  whitespace-nowrap">
                   {data.expenses?.descriptionValue ||
                     data.savings?.descriptionValue ||
                     data.incomes?.descriptionValue}
                 </td>
 
-                <td className="text-center text-sm  whitespace-nowrap">
-                  {/* <Link to={`/edit/${data.id}`}>
-                  <label
-                    htmlFor="my-modal-3"
-                    className="btn border-none"
-                    style={{ color: "white", backgroundColor: currentColor }}
-                  >
-                    Edit
-                  </label>
-                </Link> */}
-
+                <td className="text-center text-sm whitespace-nowrap">
                   <button
-                    className="btn btn-sm gap-[4px] border-none"
-                    style={{ color: "white", backgroundColor: currentColor }}
+                    className="btn btn-sm gap-[4px] border-none "
                     onClick={() => deleteData(data.id)}
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                    Delete
+                    <div className="flex justify-center items-center gap-[5px]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                      <p>Delete</p>
+                    </div>
                   </button>
                 </td>
               </tr>

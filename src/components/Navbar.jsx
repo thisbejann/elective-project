@@ -75,7 +75,7 @@ const Navbar = () => {
       <div>
         <TooltipComponent content="Profile" position="BottomCenter">
           <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
+            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-gray-100 hover:dark:bg-secondary-dark-bg rounded-lg"
             onClick={() => setIsClicked(!isClicked)}
           >
             <img src={user.photoURL} className="rounded-full w-8 h-8" />

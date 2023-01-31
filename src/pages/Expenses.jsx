@@ -89,7 +89,7 @@ const Expenses = () => {
       }`}
     >
       <div className="flex justify-between mt-12 md:mt-3 flex-col lg:flex-row lg:items-center">
-        <Header category="Page" title="Expenses" />
+        <Header category="Page" title="Expense" />
         <div className=" sm:mr-5 flex justify-center">
           <input
             className="h-[3rem] w-[10rem] sm:w-[25rem] px-3 py-2 mr-5 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 outline-none "

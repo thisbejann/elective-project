@@ -10,6 +10,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import { toast } from "react-toastify";
+
 const SavingsDialog = () => {
   const { currentColor, handleChange, values, inputAmount } = useStateContext();
 
@@ -25,13 +27,19 @@ const SavingsDialog = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // add toast if user successfully submitted
+    toast.success("Transaction added successfully", {
+      position: "top-center",
+      autoClose: 1500,
+    });
+
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value
       : cardRef.current.value;
     //format syncfusion datepicker value to yyyy-mm-dd
     const dateValue = dateRef.current.value.toString().split(" ").slice(1, 4).join("-");
 
-    const amountValue = amountRef.current.value;
+    const amountValue = parseInt(amountRef.current.value);
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
 
@@ -146,7 +154,6 @@ const SavingsDialog = () => {
                     ref={amountRef}
                     type="number"
                     min="1"
-                    // value={expense.amount}
                     name="amount"
                     className="input input-bordered w-full"
                     required
@@ -161,7 +168,6 @@ const SavingsDialog = () => {
                   <input
                     ref={descriptionRef}
                     type="text"
-                    // value={values.description}
                     name="description"
                     className="input input-bordered w-full"
                     required
