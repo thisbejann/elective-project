@@ -74,7 +74,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center ">
             <div>
               <p className="font-bold text-gray-400 text-center">Total</p>
-              <p className="text-2xl">{`$${totalBalance}`}</p>
+              <p className="text-2xl">{`₱${totalBalance}`}</p>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ const Dashboard = () => {
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
             <p className="mt-3">
-              <span className="text-lg font-semibold">{`$${totalExpenses}`}</span>
+              <span className="text-lg font-semibold">{`₱${totalExpenses}`}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Total Expense</p>
           </div>
@@ -90,7 +90,7 @@ const Dashboard = () => {
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
             <p className="mt-3">
-              <span className="text-lg font-semibold">{`$${totalIncomes}`}</span>
+              <span className="text-lg font-semibold">{`₱${totalIncomes}`}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Total Income</p>
           </div>

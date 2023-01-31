@@ -15,6 +15,7 @@ export const ContextProvider = ({ children }) => {
   const [isClicked, setIsClicked] = useState(false);
   const [userExpenses, setUserExpenses] = useState([]);
   const [userIncomes, setUserIncomes] = useState([]);
+  const [userSavings, setUserSavings] = useState([]);
   // const handleChange = (event) => {
   //   setValues({ ...values, [event.target.name]: event.target.value });
   // };
@@ -70,6 +71,8 @@ export const ContextProvider = ({ children }) => {
         setUserExpenses,
         userIncomes,
         setUserIncomes,
+        userSavings,
+        setUserSavings,
         // initialState,
       }}
     >
