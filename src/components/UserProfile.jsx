@@ -10,7 +10,7 @@ import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const UserProfile = () => {
-  const { currentColor } = useStateContext();
+  const { currentColor, resetMode } = useStateContext();
   const { setIsClicked, initialState } = useStateContext();
   const [user, loading] = useAuthState(auth);
 
@@ -40,6 +40,7 @@ const UserProfile = () => {
           onClick={() => {
             auth.signOut();
             setIsClicked(initialState);
+            // resetMode("Light");
           }}
           type="button"
           style={{ backgroundColor: currentColor, color: "white", borderRadius: "10px" }}

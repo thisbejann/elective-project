@@ -49,6 +49,14 @@ export const ContextProvider = ({ children }) => {
     setThemeSettings(false);
   };
 
+  const resetMode = (mode) => {
+    setCurrentMode(mode);
+
+    localStorage.setItem("themeMode", mode);
+
+    setThemeSettings(false);
+  };
+
   // const handleClick = (clicked) => setIsClicked({ userProfile: !clicked });
 
   return (
@@ -73,6 +81,7 @@ export const ContextProvider = ({ children }) => {
         setUserIncomes,
         userSavings,
         setUserSavings,
+        resetMode,
         // initialState,
       }}
     >
