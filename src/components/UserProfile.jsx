@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 import { Button } from "./";
-import { userProfileData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 import avatar from "../data/avatar.jpg";
 
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { updateDates } from "@syncfusion/ej2/gantt";
 
 const UserProfile = () => {
-  const { currentColor, resetMode } = useStateContext();
+  const { currentColor, resetMode, currentMode } = useStateContext();
   const { setIsClicked, initialState } = useStateContext();
   const [user, loading] = useAuthState(auth);
 
+  const oldData = JSON.parse(localStorage.getItem("userData")) || [];
+
+  const updateData = () => {
+    // check if user already exists in local storage
+    const userExists = oldData.find((data) => data.userId === user.uid);
+    if (userExists) {
+      // if user exists, update the data
+      const updatedData = oldData.map((data) => {
+        if (data.userId === user.uid) {
+          return { userId: user.uid, userMode: currentMode, userColor: currentColor };
+        }
+        return data;
+      });
+      localStorage.setItem("userData", JSON.stringify(updatedData));
+    } else {
+      // if user doesn't exist, add the data
+      const newData = [
+        ...oldData,
+        { userId: user.uid, userMode: currentMode, userColor: currentColor },
+      ];
+      localStorage.setItem("userData", JSON.stringify(newData));
+    }
+  };
+
+  // useEffect(() => {
+  //   if (loading) return;
+  //   if (!user) return;
+  //   sendData();
+  // }, []);
+
   return (
-    <div className="nav-item shadow-md absolute right-2/4 translate-x-2/4 md:right-1 md:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
+    <div className="nav-item shadow-md absolute right-2/4 translate-x-2/4 sm:right-1 sm:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
         <Button
@@ -40,7 +70,8 @@ const UserProfile = () => {
           onClick={() => {
             auth.signOut();
             setIsClicked(initialState);
-            // resetMode("Light");
+            resetMode("Light");
+            updateData();
           }}
           type="button"
           style={{ backgroundColor: currentColor, color: "white", borderRadius: "10px" }}

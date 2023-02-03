@@ -1,4 +1,7 @@
-import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from "react";
+import { auth, db } from "../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { json } from "react-router-dom";
 
 const StateContext = createContext();
 
@@ -7,6 +10,7 @@ const StateContext = createContext();
 // };
 
 export const ContextProvider = ({ children }) => {
+  const [user, loading] = useAuthState(auth);
   const [screenSize, setScreenSize] = useState(undefined);
   const [currentColor, setCurrentColor] = useState("#03C9D7");
   const [currentMode, setCurrentMode] = useState("Light");
@@ -41,18 +45,79 @@ export const ContextProvider = ({ children }) => {
     setThemeSettings(false);
   };
 
+  const resetMode = (mode) => {
+    setCurrentMode(mode);
+
+    localStorage.setItem("resetThemeMode", mode);
+  };
+
+  // const getMode = () => {
+  //   const userPref = localStorage.getItem("userData");
+  //   const userPrefData = JSON.parse(userPref);
+  //   // check each object in the array for the user id and set the mode and color
+  //   // if the user id matches the current user id
+  //   // else set the mode and color to default
+  //   if (userPrefData) {
+  //     userPrefData.forEach((userLocalData) => {
+  //       if (userLocalData.userId === user.uid) {
+  //         setCurrentMode(userLocalData.userMode);
+  //         setCurrentColor(userLocalData.userColor);
+  //         console.log("color and mode set");
+  //       } else {
+  //         setCurrentMode("Light"),
+  //           setCurrentColor("#03C9D7"),
+  //           console.log("color and mode set to default");
+  //       }
+  //     });
+  //   }
+  // };
+
+  // const getMode = () => {
+  //     const userPref = localStorage.getItem("userData");
+  //     const userPrefData = JSON.parse(userPref);
+  //     // check each object in the array for the user id and set the mode and color
+  //     // if the user id matches the current user id
+  //     // else set the mode and color to default
+  //     if (userPrefData) {
+  //       userPrefData.forEach((userLocalData) => {
+  //         if (userLocalData.userId === user.uid) {
+  //           setCurrentMode(userLocalData.userMode);
+  //           setCurrentColor(userLocalData.userColor);
+  //           console.log("color and mode set");
+  //         } else {
+  //           setCurrentMode("Light"),
+  //             setCurrentColor("#03C9D7"),
+  //             console.log("color and mode set to default");
+  //         }
+  //       });
+  //     }
+  //   };
+
+  const getMode = (user) => {
+    setCurrentMode("Light"), setCurrentColor("#03C9D7");
+    console.log("color and mode set to default");
+    const userPref = localStorage.getItem("userData");
+    console.log(userPref);
+    const userPrefData = JSON.parse(userPref);
+    if (userPref && userPref !== null) {
+      try {
+        if (userPrefData.length !== undefined && userPrefData.length > 0) {
+          const prefs = userPrefData.find((item) => item.userId === user.uid);
+          if (!prefs.userMode || prefs.userMode === null) return null;
+          setCurrentMode(prefs.userMode);
+          setCurrentColor(prefs.userColor);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+    return null;
+  };
+
   const setColor = (color) => {
     setCurrentColor(color);
 
     localStorage.setItem("colorMode", color);
-
-    setThemeSettings(false);
-  };
-
-  const resetMode = (mode) => {
-    setCurrentMode(mode);
-
-    localStorage.setItem("themeMode", mode);
 
     setThemeSettings(false);
   };
@@ -82,6 +147,7 @@ export const ContextProvider = ({ children }) => {
         userSavings,
         setUserSavings,
         resetMode,
+        getMode,
         // initialState,
       }}
     >
