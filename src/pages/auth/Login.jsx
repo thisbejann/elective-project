@@ -8,10 +8,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useStateContext } from "../../contexts/ContextProvider";
 
 const Login = () => {
-  const { currentColor } = useStateContext();
+  const { currentColor, getMode } = useStateContext();
   const googleProvider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
+
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -22,7 +23,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    console.log("User data is", user);
+    if (user && user.uid !== undefined) {
+      getMode(user);
       navigate("/dashboard");
     } else {
     }
@@ -39,7 +42,9 @@ const Login = () => {
         <div className="py-4">
           <h3 className="py-4 dark:text-white">Sign in with one of the providers</h3>
           <button
-            onClick={GoogleLogin}
+            onClick={() => {
+              GoogleLogin();
+            }}
             className="text-white bg-gray-700 w-full font-medium rounded-lg flex justify-center align-middle p-4 gap-2"
           >
             <FcGoogle className="text-2xl" />

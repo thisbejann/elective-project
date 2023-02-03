@@ -32,10 +32,6 @@ const Dashboard = () => {
   // get all amountValue from Incomes and Expenses and add them
   const totalBalance = totalIncomes - totalExpenses;
 
-  console.log(totalExpenses);
-  console.log(totalIncomes);
-  console.log(totalBalance);
-
   const getExpenses = async () => {
     if (loading) return;
     if (!user) return navigate("/auth/login");
