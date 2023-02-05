@@ -20,22 +20,18 @@ export const ContextProvider = ({ children }) => {
   const [userExpenses, setUserExpenses] = useState([]);
   const [userIncomes, setUserIncomes] = useState([]);
   const [userSavings, setUserSavings] = useState([]);
-  // const handleChange = (event) => {
-  //   setValues({ ...values, [event.target.name]: event.target.value });
-  // };
 
   useEffect(() => {
     const themeMode = localStorage.getItem("themeMode");
     const colorMode = localStorage.getItem("colorMode");
 
-    if (themeMode) {
+    if (user && themeMode) {
       setCurrentMode(themeMode);
     }
-
-    if (colorMode) {
+    if (user && colorMode) {
       setCurrentColor(colorMode);
     }
-  }, []);
+  }, [user]);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -51,53 +47,9 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem("resetThemeMode", mode);
   };
 
-  // const getMode = () => {
-  //   const userPref = localStorage.getItem("userData");
-  //   const userPrefData = JSON.parse(userPref);
-  //   // check each object in the array for the user id and set the mode and color
-  //   // if the user id matches the current user id
-  //   // else set the mode and color to default
-  //   if (userPrefData) {
-  //     userPrefData.forEach((userLocalData) => {
-  //       if (userLocalData.userId === user.uid) {
-  //         setCurrentMode(userLocalData.userMode);
-  //         setCurrentColor(userLocalData.userColor);
-  //         console.log("color and mode set");
-  //       } else {
-  //         setCurrentMode("Light"),
-  //           setCurrentColor("#03C9D7"),
-  //           console.log("color and mode set to default");
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const getMode = () => {
-  //     const userPref = localStorage.getItem("userData");
-  //     const userPrefData = JSON.parse(userPref);
-  //     // check each object in the array for the user id and set the mode and color
-  //     // if the user id matches the current user id
-  //     // else set the mode and color to default
-  //     if (userPrefData) {
-  //       userPrefData.forEach((userLocalData) => {
-  //         if (userLocalData.userId === user.uid) {
-  //           setCurrentMode(userLocalData.userMode);
-  //           setCurrentColor(userLocalData.userColor);
-  //           console.log("color and mode set");
-  //         } else {
-  //           setCurrentMode("Light"),
-  //             setCurrentColor("#03C9D7"),
-  //             console.log("color and mode set to default");
-  //         }
-  //       });
-  //     }
-  //   };
-
   const getMode = (user) => {
     setCurrentMode("Light"), setCurrentColor("#03C9D7");
-    console.log("color and mode set to default");
     const userPref = localStorage.getItem("userData");
-    console.log(userPref);
     const userPrefData = JSON.parse(userPref);
     if (userPref && userPref !== null) {
       try {
