@@ -11,18 +11,22 @@ import {
   PointElement,
   Title,
   Filler,
+  TimeScale,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import "chartjs-adapter-moment";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore";
 import { auth, db } from "../../utils/firebase";
+import moment from "moment";
 
 ChartJS.register(
   BarElement,
   LineElement,
   CategoryScale,
   LinearScale,
+  TimeScale,
   Tooltip,
   Legend,
   ArcElement,
@@ -43,16 +47,50 @@ const LineChart = () => {
       if (!user) return navigate("/auth/login");
 
       const collectionRef = collection(db, "expenses");
-      const q = query(collectionRef, where("user", "==", user.uid));
+      const q = query(
+        collectionRef,
+        where("user", "==", user.uid),
+        orderBy("expenses.dateValue", "desc")
+      );
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setUserExpenses(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       });
+
+      const dateArray = userExpenses.map((data) =>
+        data.expenses.dateValue.toDate().toLocaleDateString("en-US")
+      );
+
+      const uniqueDateArray = [...new Set(dateArray)];
+
+      const groupedExpenses = uniqueDateArray.map((date) => {
+        const filteredExpenses = userExpenses.filter((expense) => {
+          return expense.expenses.dateValue.toDate().toLocaleDateString("en-US") === date;
+        });
+        const totalAmount = filteredExpenses.reduce((acc, curr) => {
+          return acc + curr.expenses.amountValue;
+        }, 0);
+        return { date, totalAmount };
+      });
+
+      // //get all items from userExpenses that has the same dateValue and add them
+      // const groupedExpenses = userExpenses.reduce((acc, curr) => {
+      //   const date = curr.expenses.dateValue.toDate().toLocaleDateString("en-US");
+      //   if (!acc[date]) {
+      //     acc[date] = [];
+      //   }
+      //   acc[date].push(curr);
+      //   return acc;
+      // }, {});
+
+      // reverse the array to get the latest data
+      groupedExpenses.reverse();
+
       setExpenseChartData({
-        labels: userExpenses.map((data) => data.expenses.dateValue),
+        labels: groupedExpenses.map((data) => data.date),
         datasets: [
           {
             label: "Expenses",
-            data: userExpenses.map((data) => data.expenses.amountValue),
+            data: groupedExpenses.map((data) => data.totalAmount),
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
             borderWidth: 1,
@@ -62,7 +100,12 @@ const LineChart = () => {
       return unsubscribe;
     };
     getExpenses();
-  }, []);
+  }, [user, loading, userExpenses, setUserExpenses]);
+
+  let start = new Date();
+  let end = new Date();
+
+  start.setDate(start.getDate() - 3);
 
   return (
     <div>
@@ -72,6 +115,15 @@ const LineChart = () => {
           responsive: true,
           plugins: {
             legend: { position: "top" },
+          },
+          animation: false,
+          scales: {
+            x: {
+              ticks: {
+                min: start,
+                max: end,
+              },
+            },
           },
         }}
       />

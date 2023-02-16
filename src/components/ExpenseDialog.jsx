@@ -1,4 +1,5 @@
 import { React, useState, useRef, useEffect } from "react";
+import "firebase/firestore";
 
 import validator from "validator";
 
@@ -6,7 +7,7 @@ import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 import { useStateContext } from "../contexts/ContextProvider";
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { Timestamp, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -28,17 +29,22 @@ const ExpenseDialog = () => {
     event.preventDefault();
 
     // add toast if user successfully submitted
-    toast.success("Transaction added successfully", {
-      position: "top-center",
-      autoClose: 1500,
-    });
+    try {
+      toast.success("Transaction added successfully", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    } catch (error) {
+      toast.error(error.message, {
+        position: "top-center",
+        autoClose: 1500,
+      });
+    }
 
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value
       : cardRef.current.value;
-    //format syncfusion datepicker value to yyyy-mm-dd
-    const dateValue = dateRef.current.value.toString().split(" ").slice(1, 4).join("-");
-
+    const dateValue = Timestamp.fromDate(new Date(dateRef.current.value));
     const amountValue = parseInt(amountRef.current.value);
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
@@ -66,11 +72,6 @@ const ExpenseDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
-
-    categoryRef.current.value = "";
-    amountRef.current.value = "";
-    descriptionRef.current.value = "";
-    categoryRef.current.value = "";
 
     console.log(expenseObject);
   };

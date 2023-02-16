@@ -61,6 +61,11 @@ const Dashboard = () => {
   useEffect(() => {
     getExpenses();
     getIncomes();
+
+    return () => {
+      setExpenseData([]);
+      setIncomeData([]);
+    };
   }, [user, loading]);
 
   return (

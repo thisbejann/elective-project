@@ -75,7 +75,9 @@ const Table = ({ userData, filteredData }) => {
                     data.incomes?.transactionValue}
                 </td>
                 <td className="p-3 text-center text-sm  whitespace-nowrap">
-                  {data.expenses?.dateValue || data.savings?.dateValue || data.incomes?.dateValue}
+                  {data.expenses?.dateValue.toDate().toLocaleDateString("en-US") ||
+                    data.savings?.dateValue.toDate().toLocaleDateString("en-US") ||
+                    data.incomes?.dateValue.toDate().toLocaleDateString("en-US")}
                 </td>
                 <td className="p-3 text-center text-sm  whitespace-nowrap">
                   {data.expenses?.descriptionValue ||
