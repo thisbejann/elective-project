@@ -25,7 +25,13 @@ const Expenses = () => {
       return (
         item.expenses?.amountValue.toString().includes(expenseQuery.toLowerCase()) ||
         item.expenses?.categoryValue.toLowerCase().includes(expenseQuery.toLowerCase()) ||
-        item.expenses?.dateValue.toLowerCase().includes(expenseQuery.toLowerCase()) ||
+        new Date(item.expenses?.dateValue.toMillis())
+          .toDateString()
+          .split(" ")
+          .slice(1)
+          .join(" ")
+          .toLowerCase()
+          .includes(expenseQuery.toLowerCase()) ||
         item.expenses?.descriptionValue.toLowerCase().includes(expenseQuery.toLowerCase()) ||
         item.expenses?.transactionValue.toLowerCase().includes(expenseQuery.toLowerCase())
       );

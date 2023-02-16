@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BSCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
-import { Stacked, Pie, Button, SparkLine } from "../components";
+import { Stacked, Pie, Button, SparkLine, LineChart } from "../components";
 import { earningData, SparklineAreaData, ecomPieChartData } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -61,6 +61,11 @@ const Dashboard = () => {
   useEffect(() => {
     getExpenses();
     getIncomes();
+
+    return () => {
+      setExpenseData([]);
+      setIncomeData([]);
+    };
   }, [user, loading]);
 
   return (
@@ -131,7 +136,7 @@ const Dashboard = () => {
               </div>
 
               <div className="mt-5">
-                <SparkLine
+                {/* <SparkLine
                   currentColor={currentColor}
                   id="line-sparkline"
                   type="Line"
@@ -139,8 +144,10 @@ const Dashboard = () => {
                   width="250px"
                   data={SparklineAreaData}
                   color={currentColor}
-                />
+                /> */}
+                <LineChart />
               </div>
+
               <div className="mt-10">
                 <Button
                   color="white"

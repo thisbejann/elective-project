@@ -1,38 +1,133 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
-  ChartComponent,
-  SeriesCollectionDirective,
-  SeriesDirective,
-  Inject,
-  LineSeries,
-  DateTime,
-  Legend,
+  Chart as ChartJS,
+  BarElement,
+  LineElement,
+  CategoryScale,
+  LinearScale,
   Tooltip,
-} from "@syncfusion/ej2-react-charts";
-
-import { lineCustomSeries, LinePrimaryYAxis, LinePrimaryXAxis } from "../../data/dummy";
+  Legend,
+  ArcElement,
+  PointElement,
+  Title,
+  Filler,
+  TimeScale,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import "chartjs-adapter-moment";
 import { useStateContext } from "../../contexts/ContextProvider";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore";
+import { auth, db } from "../../utils/firebase";
+import moment from "moment";
+
+ChartJS.register(
+  BarElement,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  Tooltip,
+  Legend,
+  ArcElement,
+  PointElement,
+  Title,
+  Filler
+);
 
 const LineChart = () => {
-  const { currentMode } = useStateContext();
+  const [user, loading] = useAuthState(auth);
+  const { userExpenses, setUserExpenses } = useStateContext();
+
+  const [expenseChartData, setExpenseChartData] = useState({ datasets: [] });
+
+  useEffect(() => {
+    const getExpenses = async () => {
+      if (loading) return;
+      if (!user) return navigate("/auth/login");
+
+      const collectionRef = collection(db, "expenses");
+      const q = query(
+        collectionRef,
+        where("user", "==", user.uid),
+        orderBy("expenses.dateValue", "desc")
+      );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        setUserExpenses(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      });
+
+      const dateArray = userExpenses.map((data) =>
+        data.expenses.dateValue.toDate().toLocaleDateString("en-US")
+      );
+
+      const uniqueDateArray = [...new Set(dateArray)];
+
+      const groupedExpenses = uniqueDateArray.map((date) => {
+        const filteredExpenses = userExpenses.filter((expense) => {
+          return expense.expenses.dateValue.toDate().toLocaleDateString("en-US") === date;
+        });
+        const totalAmount = filteredExpenses.reduce((acc, curr) => {
+          return acc + curr.expenses.amountValue;
+        }, 0);
+        return { date, totalAmount };
+      });
+
+      // //get all items from userExpenses that has the same dateValue and add them
+      // const groupedExpenses = userExpenses.reduce((acc, curr) => {
+      //   const date = curr.expenses.dateValue.toDate().toLocaleDateString("en-US");
+      //   if (!acc[date]) {
+      //     acc[date] = [];
+      //   }
+      //   acc[date].push(curr);
+      //   return acc;
+      // }, {});
+
+      // reverse the array to get the latest data
+      groupedExpenses.reverse();
+
+      setExpenseChartData({
+        labels: groupedExpenses.map((data) => data.date),
+        datasets: [
+          {
+            label: "Expenses",
+            data: groupedExpenses.map((data) => data.totalAmount),
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+          },
+        ],
+      });
+      return unsubscribe;
+    };
+    getExpenses();
+  }, [user, loading, userExpenses, setUserExpenses]);
+
+  let start = new Date();
+  let end = new Date();
+
+  start.setDate(start.getDate() - 3);
 
   return (
-    <ChartComponent
-      id="line-chart"
-      height="420px"
-      primaryXAxis={LinePrimaryXAxis}
-      primaryYAxis={LinePrimaryYAxis}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-      background={currentMode === "Dark" ? "#33373E" : "#fff"}
-    >
-      <Inject services={[LineSeries, DateTime, Legend, Tooltip]} />
-      <SeriesCollectionDirective>
-        {lineCustomSeries.map((item, index) => (
-          <SeriesDirective key={index} {...item} />
-        ))}
-      </SeriesCollectionDirective>
-    </ChartComponent>
+    <div>
+      <Line
+        data={expenseChartData}
+        options={{
+          responsive: true,
+          plugins: {
+            legend: { position: "top" },
+          },
+          animation: false,
+          scales: {
+            x: {
+              ticks: {
+                min: start,
+                max: end,
+              },
+            },
+          },
+        }}
+      />
+    </div>
   );
 };
 
