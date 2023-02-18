@@ -26,7 +26,13 @@ const Savings = () => {
       return (
         item.savings?.amountValue.toString().includes(savingsQuery.toLowerCase()) ||
         item.savings?.categoryValue.toLowerCase().includes(savingsQuery.toLowerCase()) ||
-        item.savings?.dateValue.toLowerCase().includes(savingsQuery.toLowerCase()) ||
+        new Date(item.savings?.dateValue.toMillis())
+          .toDateString()
+          .split(" ")
+          .slice(1)
+          .join(" ")
+          .toLowerCase()
+          .includes(expenseQuery.toLowerCase()) ||
         item.savings?.descriptionValue.toLowerCase().includes(savingsQuery.toLowerCase()) ||
         item.savings?.transactionValue.toLowerCase().includes(savingsQuery.toLowerCase())
       );
@@ -95,53 +101,52 @@ const Savings = () => {
     setInitial(true);
   };
 
-  console.log(initial);
-
   return (
     <div
-      className={`m-2 mt-10 md:m-10 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg ${
+      className={`m-2 mt-[5rem] md:m-10 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg ${
         isClicked ? "hidden sm:block" : ""
       }`}
     >
-      <div className="flex justify-between mt-12 md:mt-3 flex-col lg:flex-row lg:items-center">
+      <div className="flex justify-between mt-12 md:mt-3 flex-col lg:flex-row">
         <Header category="Page" title="Savings" />
-        <div className=" sm:mr-5 flex justify-center">
-          <input
-            className="h-[3rem] w-[10rem] sm:w-[25rem] px-3 py-2 mr-5 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 outline-none "
-            type="search"
-            onChange={(e) => setSavingsQuery(e.target.value)}
-            placeholder="Search..."
-          />
+        <div className="flex flex-col justify-between mx-5">
+          <div className="flex justify-between">
+            <input
+              className="h-[3rem] w-[10rem] sm:w-[25rem] px-3 mr-5 font-semibold placeholder-gray-500  rounded-2xl ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 outline-none "
+              type="search"
+              onChange={(e) => setSavingsQuery(e.target.value)}
+              placeholder="Search..."
+            />
 
-          <SavingsDialog />
+            <SavingsDialog />
+          </div>
+          <div className="flex justify-between mt-5 items-center sm:justify-end ">
+            <div>
+              <select
+                className="ring-2 h-[3rem] w-[10rem] px-3 ring-gray-300 border-none rounded-2xl font-semibold text-gray-500 focus:ring-gray-500 focus:ring-2 outline-none sm:mr-5"
+                name="sortBy"
+                onChange={handleSorting}
+                value={initial ? "Sort By:" : ""}
+              >
+                <option disabled>Sort By:</option>
+                {sortBy.map((sort, index) => {
+                  return (
+                    <option key={sort.name} value={[sort.properties.field, sort.properties.order]}>
+                      {sort.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <button
+              className="btn border-none outline-none rounded-2xl"
+              style={{ color: "white", backgroundColor: currentColor }}
+              onClick={handleReset}
+            >
+              Reset
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="flex justify-end mt-5 items-center">
-        <div>
-          <label className="dark:text-white">Sort By:</label>
-          <select
-            className="ring-2 w-[10rem] text-center ring-gray-300 border-none rounded-2xl focus:ring-gray-500 focus:ring-2 outline-none h-[3rem] mx-3"
-            name="sortBy"
-            onChange={handleSorting}
-            value={initial ? "Please Select" : ""}
-          >
-            <option disabled>Please Select</option>
-            {sortBy.map((sort, index) => {
-              return (
-                <option key={sort.name} value={[sort.properties.field, sort.properties.order]}>
-                  {sort.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <button
-          className="btn border-none outline-none rounded-2xl "
-          style={{ color: "white", backgroundColor: currentColor }}
-          onClick={handleReset}
-        >
-          Reset
-        </button>
       </div>
       <Table userData={userSavings} filteredData={filteredItems} />
     </div>
