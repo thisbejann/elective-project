@@ -62,15 +62,17 @@ const LineChart = () => {
 
       const uniqueDateArray = [...new Set(dateArray)];
 
-      const groupedExpenses = uniqueDateArray.map((date) => {
-        const filteredExpenses = userExpenses.filter((expense) => {
-          return expense.expenses.dateValue.toDate().toLocaleDateString("en-US") === date;
-        });
-        const totalAmount = filteredExpenses.reduce((acc, curr) => {
-          return acc + curr.expenses.amountValue;
-        }, 0);
-        return { date, totalAmount };
-      });
+      //  group the expenses by date and add them together, also limit the array to 7 items only to display on the chart
+      const groupedExpenses = uniqueDateArray
+        .map((date) => {
+          const totalAmount = userExpenses
+            .filter((data) => data.expenses.dateValue.toDate().toLocaleDateString("en-US") === date)
+            .reduce((acc, curr) => {
+              return acc + curr.expenses.amountValue;
+            }, 0);
+          return { date, totalAmount };
+        })
+        .slice(0, 5);
 
       // //get all items from userExpenses that has the same dateValue and add them
       // const groupedExpenses = userExpenses.reduce((acc, curr) => {
@@ -102,11 +104,6 @@ const LineChart = () => {
     getExpenses();
   }, [user, loading, userExpenses, setUserExpenses]);
 
-  let start = new Date();
-  let end = new Date();
-
-  start.setDate(start.getDate() - 3);
-
   return (
     <div>
       <Line
@@ -117,14 +114,6 @@ const LineChart = () => {
             legend: { position: "top" },
           },
           animation: false,
-          scales: {
-            x: {
-              ticks: {
-                min: start,
-                max: end,
-              },
-            },
-          },
         }}
       />
     </div>
