@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { BSCurrencyDollar } from "react-icons/bs";
 import { GoPrimitiveDot } from "react-icons/go";
-import { Stacked, Pie, Button, SparkLine, LineChart } from "../components";
-import { earningData, SparklineAreaData, ecomPieChartData } from "../data/dummy";
+import { Stacked, Button, LineChart } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { auth, db } from "../utils/firebase";
@@ -63,8 +61,8 @@ const Dashboard = () => {
     getIncomes();
 
     return () => {
-      setExpenseData([]);
-      setIncomeData([]);
+      getExpenses();
+      getIncomes();
     };
   }, [user, loading]);
 
@@ -74,7 +72,7 @@ const Dashboard = () => {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center flex justify-center text-2xl">
           <div className="flex justify-between items-center ">
             <div>
-              <p className="font-bold text-gray-400 text-center">Total</p>
+              <p className="font-bold text-gray-400 text-center">Wallet</p>
               <p className="text-2xl">{`₱${totalBalance}`}</p>
             </div>
           </div>
@@ -136,15 +134,6 @@ const Dashboard = () => {
               </div>
 
               <div className="mt-5">
-                {/* <SparkLine
-                  currentColor={currentColor}
-                  id="line-sparkline"
-                  type="Line"
-                  height="80px"
-                  width="250px"
-                  data={SparklineAreaData}
-                  color={currentColor}
-                /> */}
                 <LineChart />
               </div>
 
