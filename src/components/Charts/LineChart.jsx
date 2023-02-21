@@ -18,7 +18,7 @@ import { Line } from "react-chartjs-2";
 
 import { useStateContext } from "../../contexts/ContextProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore";
+import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
 import { auth, db } from "../../utils/firebase";
 
 ChartJS.register(
@@ -37,7 +37,8 @@ ChartJS.register(
 
 const LineChart = () => {
   const [user, loading] = useAuthState(auth);
-  const { userExpenses, setUserExpenses, userIncomes, setUserIncomes } = useStateContext();
+  const { userExpenses, setUserExpenses, userIncomes, setUserIncomes, currentMode } =
+    useStateContext();
 
   const [expenseChartData, setExpenseChartData] = useState({ datasets: [] });
   const [incomeChartData, setIncomeChartData] = useState({ datasets: [] });
@@ -149,9 +150,24 @@ const LineChart = () => {
         options={{
           responsive: true,
           plugins: {
-            legend: { position: "top" },
+            legend: {
+              position: "top",
+              labels: { color: `${currentMode === "Dark" ? "white" : "black"}` },
+            },
           },
           animation: false,
+          scales: {
+            x: {
+              ticks: {
+                color: `${currentMode === "Dark" ? "white" : "black"}`,
+              },
+            },
+            y: {
+              ticks: {
+                color: `${currentMode === "Dark" ? "white" : "black"}`,
+              },
+            },
+          },
         }}
       />
       <Line
@@ -159,9 +175,26 @@ const LineChart = () => {
         options={{
           responsive: true,
           plugins: {
-            legend: { position: "top" },
+            legend: {
+              position: "top",
+              labels: {
+                color: `${currentMode === "Dark" ? "white" : "black"}`,
+              },
+            },
           },
           animation: false,
+          scales: {
+            x: {
+              ticks: {
+                color: `${currentMode === "Dark" ? "white" : "black"}`,
+              },
+            },
+            y: {
+              ticks: {
+                color: `${currentMode === "Dark" ? "white" : "black"}`,
+              },
+            },
+          },
         }}
       />
     </div>

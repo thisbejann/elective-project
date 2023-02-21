@@ -89,20 +89,20 @@ const ExpenseDialog = () => {
       </label>
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal">
-        <div className="modal-box relative">
+        <div className="modal-box relative dark:bg-main-dark-bg">
           <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
             ✕
           </label>
           <form onSubmit={handleSubmit}>
-            <h3 className="text-lg font-bold">Add Transaction</h3>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Add Transaction</h3>
             <div className="modal-action flex-col">
               <div className="form-control flex-row gap-3 justify-center">
                 <label className="label cursor-pointer">
-                  <span className="label-text mr-2">Cash</span>
+                  <span className="label-text mr-2 text-slate-900 dark:text-white">Cash</span>
                   <input
                     type="radio"
                     name="transaction"
-                    className="radio"
+                    className="radio dark:bg-white"
                     value="Cash"
                     ref={cashRef}
                     required
@@ -110,11 +110,13 @@ const ExpenseDialog = () => {
                   />
                 </label>
                 <label className="label cursor-pointer">
-                  <span className="label-text mr-2">Credit/Debit Card</span>
+                  <span className="label-text mr-2 text-slate-900 dark:text-white">
+                    Credit/Debit Card
+                  </span>
                   <input
                     type="radio"
                     name="transaction"
-                    className="radio"
+                    className="radio dark:bg-white "
                     value="Credit/Debit"
                     ref={cardRef}
                   />
@@ -132,7 +134,7 @@ const ExpenseDialog = () => {
               <div className="form-control flex flex-row gap-5">
                 <div className="w-full">
                   <label className="label">
-                    <span className="label-text">Select a Category</span>
+                    <span className="label-text dark:text-white">Select a Category</span>
                   </label>
                   <select
                     ref={categoryRef}
@@ -147,7 +149,7 @@ const ExpenseDialog = () => {
                 </div>
                 <div className="w-full">
                   <label className="label">
-                    <span className="label-text">Enter Amount</span>
+                    <span className="label-text dark:text-white">Enter Amount</span>
                   </label>
                   <input
                     ref={amountRef}
@@ -162,7 +164,7 @@ const ExpenseDialog = () => {
               <div className="form-control mt-2 mb-2">
                 <div className="w-full">
                   <label className="label">
-                    <span className="label-text">Add Description</span>
+                    <span className="label-text dark:text-white">Add Description</span>
                   </label>
                   <input
                     ref={descriptionRef}
