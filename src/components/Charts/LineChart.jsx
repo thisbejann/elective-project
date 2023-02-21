@@ -171,6 +171,7 @@ const LineChart = () => {
         }}
       />
       <Line
+        className="mt-5"
         data={incomeChartData}
         options={{
           responsive: true,
