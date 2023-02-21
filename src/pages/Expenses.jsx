@@ -123,10 +123,10 @@ const Expenses = () => {
           <div className="flex justify-between mt-5 items-center sm:justify-end ">
             <div>
               <select
-                className="ring-2 h-[3rem] w-[10rem] px-3 ring-gray-300 border-none rounded-2xl font-semibold text-gray-500 focus:ring-gray-500 focus:ring-2 outline-none sm:mr-5"
+                className="ring-2 h-[3rem] w-[14rem] sm:w-[15rem] mr-5 px-3 ring-gray-300 border-none rounded-2xl font-semibold text-gray-500 focus:ring-gray-500 focus:ring-2 outline-none sm:mr-5"
                 name="sortBy"
                 onChange={handleSorting}
-                value={initial ? "Sort By:" : ""}
+                value={initial ? "Sort By:" : `${sorting.field},${sorting.order}`}
               >
                 <option disabled>Sort By:</option>
                 {sortBy.map((sort, index) => {
@@ -149,7 +149,7 @@ const Expenses = () => {
         </div>
       </div>
 
-      <Table userData={userExpenses} filteredData={filteredItems} />
+      <Table filteredData={filteredItems} />
     </div>
   );
 };
