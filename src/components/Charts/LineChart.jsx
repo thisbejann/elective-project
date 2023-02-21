@@ -79,7 +79,7 @@ const LineChart = () => {
         labels: groupedExpenses.map((data) => data.date),
         datasets: [
           {
-            label: "Expenses",
+            label: "Expense",
             data: groupedExpenses.map((data) => data.totalAmount),
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
@@ -129,7 +129,7 @@ const LineChart = () => {
         labels: groupedIncomes.map((data) => data.date),
         datasets: [
           {
-            label: "Incomes",
+            label: "Income",
             data: groupedIncomes.map((data) => data.totalAmount),
             backgroundColor: "rgba(54, 162, 235, 0.2)",
             borderColor: "rgba(54, 162, 235, 1)",
