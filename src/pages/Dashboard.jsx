@@ -135,7 +135,7 @@ const Dashboard = () => {
               className="border-b-1 pb-[3rem] sm:border-b-0 sm:border-r-1 sm:pr-10"
               style={{ borderColor: currentColor }}
             >
-              <div className="mt-5">
+              <div className="mt-5 w-[20rem]">
                 <LineChart />
               </div>
             </div>
