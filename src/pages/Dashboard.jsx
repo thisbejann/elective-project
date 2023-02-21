@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { BSCurrencyDollar } from "react-icons/bs";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { GoPrimitiveDot } from "react-icons/go";
-import { Stacked, Pie, Button, SparkLine, LineChart } from "../components";
-import { earningData, SparklineAreaData, ecomPieChartData } from "../data/dummy";
+import { Stacked, Button, LineChart } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { auth, db } from "../utils/firebase";
-import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, where, orderBy, getDocs } from "firebase/firestore";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
@@ -16,57 +14,50 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
-  const [expenseData, setExpenseData] = useState([]);
-  const [incomeData, setIncomeData] = useState([]);
+  const [data, setData] = useState({ expenses: [], incomes: [] });
 
-  // get all amountValue from Expenses and add them
-  const totalExpenses = expenseData.reduce((acc, curr) => {
-    return acc + curr.expenses.amountValue;
-  }, 0);
+  const getTotalExpenses = useMemo(() => {
+    return data.expenses.reduce((acc, curr) => {
+      return acc + curr.expenses.amountValue;
+    }, 0);
+  }, [data.expenses]);
 
-  // get all amountValue from Incomes and add them
-  const totalIncomes = incomeData.reduce((acc, curr) => {
-    return acc + curr.incomes.amountValue;
-  }, 0);
+  const getTotalIncomes = useMemo(() => {
+    return data.incomes.reduce((acc, curr) => {
+      return acc + curr.incomes.amountValue;
+    }, 0);
+  }, [data.incomes]);
 
-  // get all amountValue from Incomes and Expenses and add them
-  const totalBalance = totalIncomes - totalExpenses;
+  const getTotalBalance = useMemo(() => {
+    return getTotalIncomes - getTotalExpenses;
+  }, [getTotalIncomes, getTotalExpenses]);
 
-  const getExpenses = async () => {
+  const getData = useCallback(async () => {
     if (loading) return;
     if (!user) return navigate("/auth/login");
 
-    const collectionRef = collection(db, "expenses");
-    const q = query(collectionRef, where("user", "==", user.uid));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setExpenseData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
+    const expensesRef = collection(db, "expenses");
+    const incomesRef = collection(db, "incomes");
+    const expensesQuery = query(expensesRef, where("user", "==", user.uid));
+    const incomesQuery = query(incomesRef, where("user", "==", user.uid));
 
-    return unsubscribe;
-  };
+    const [expensesSnapshot, incomesSnapshot] = await Promise.all([
+      getDocs(expensesQuery),
+      getDocs(incomesQuery),
+    ]);
 
-  const getIncomes = async () => {
-    if (loading) return;
-    if (!user) return navigate("/auth/login");
+    const expensesData = expensesSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    const incomesData = incomesSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-    const collectionRef = collection(db, "incomes");
-    const q = query(collectionRef, where("user", "==", user.uid));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setIncomeData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    });
-
-    return unsubscribe;
-  };
+    setData({ expenses: expensesData, incomes: incomesData });
+  }, [user, loading, navigate]);
 
   useEffect(() => {
-    getExpenses();
-    getIncomes();
-
+    getData();
     return () => {
-      setExpenseData([]);
-      setIncomeData([]);
+      getData();
     };
-  }, [user, loading]);
+  }, [getData]);
 
   return (
     <div className="mt-12">
@@ -74,8 +65,8 @@ const Dashboard = () => {
         <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center flex justify-center text-2xl">
           <div className="flex justify-between items-center ">
             <div>
-              <p className="font-bold text-gray-400 text-center">Total</p>
-              <p className="text-2xl">{`₱${totalBalance}`}</p>
+              <p className="font-bold text-gray-400 text-center">Wallet</p>
+              <p className="text-2xl">{`₱${getTotalBalance}`}</p>
             </div>
           </div>
         </div>
@@ -83,7 +74,7 @@ const Dashboard = () => {
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
             <p className="mt-3">
-              <span className="text-lg font-semibold">{`₱${totalExpenses}`}</span>
+              <span className="text-lg font-semibold">{`₱${getTotalExpenses}`}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Total Expense</p>
           </div>
@@ -91,7 +82,7 @@ const Dashboard = () => {
         <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
           <div className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl">
             <p className="mt-3">
-              <span className="text-lg font-semibold">{`₱${totalIncomes}`}</span>
+              <span className="text-lg font-semibold">{`₱${getTotalIncomes}`}</span>
             </p>
             <p className="text-sm text-gray-400 mt-1">Total Income</p>
           </div>
@@ -136,15 +127,6 @@ const Dashboard = () => {
               </div>
 
               <div className="mt-5">
-                {/* <SparkLine
-                  currentColor={currentColor}
-                  id="line-sparkline"
-                  type="Line"
-                  height="80px"
-                  width="250px"
-                  data={SparklineAreaData}
-                  color={currentColor}
-                /> */}
                 <LineChart />
               </div>
 

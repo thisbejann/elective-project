@@ -52,7 +52,6 @@ const Expenses = () => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setUserExpenses(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
-
     return unsubscribe;
   };
 

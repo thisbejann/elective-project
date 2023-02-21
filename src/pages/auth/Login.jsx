@@ -23,7 +23,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log("User data is", user);
     if (user && user.uid !== undefined) {
       getMode(user);
       navigate("/dashboard");

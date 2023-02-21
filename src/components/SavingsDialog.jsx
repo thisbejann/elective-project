@@ -127,7 +127,6 @@ const SavingsDialog = () => {
                   placeholder="Enter Date"
                   floatLabelType="Always"
                   name="calendar"
-                  required
                 />
               </div>
               <div className="form-control flex flex-row gap-5">
@@ -139,7 +138,6 @@ const SavingsDialog = () => {
                     ref={categoryRef}
                     className="select select-bordered w-full"
                     name="category"
-                    required
                   >
                     <option value="Bills">Bills</option>
                     <option value="Transportation">Transportation</option>

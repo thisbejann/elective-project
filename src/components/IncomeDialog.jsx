@@ -150,9 +150,11 @@ const IncomeDialog = () => {
                   </label>
                   <input
                     ref={amountRef}
-                    type="text"
+                    type="number"
+                    min="1"
                     name="amount"
                     className="input input-bordered w-full"
+                    required
                   />
                 </div>
               </div>
@@ -166,6 +168,7 @@ const IncomeDialog = () => {
                     type="text"
                     name="description"
                     className="input input-bordered w-full"
+                    required
                   />
                 </div>
               </div>

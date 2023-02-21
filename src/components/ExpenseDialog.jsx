@@ -82,7 +82,7 @@ const ExpenseDialog = () => {
     <div>
       <label
         htmlFor="my-modal-3"
-        className="btn border-none outline-none rounded-2xl "
+        className="btn border-none rounded-2xl "
         style={{ color: "white", backgroundColor: currentColor }}
       >
         Add Transaction
@@ -127,7 +127,6 @@ const ExpenseDialog = () => {
                   placeholder="Enter Date"
                   floatLabelType="Always"
                   name="calendar"
-                  required
                 />
               </div>
               <div className="form-control flex flex-row gap-5">
@@ -139,7 +138,6 @@ const ExpenseDialog = () => {
                     ref={categoryRef}
                     className="select select-bordered w-full"
                     name="category"
-                    required
                   >
                     <option value="Bills">Bills</option>
                     <option value="Transportation">Transportation</option>
