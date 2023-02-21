@@ -11,19 +11,19 @@ const Table = ({ userData, filteredData }) => {
   const deleteData = async (id) => {
     // delete collection id from firebase with condition if collection is from expenses, savings, or income
     if (window.confirm("Are you sure you want to delete this data?")) {
-      if (userData[0].expenses) {
+      if (filteredData[0].expenses) {
         await deleteDoc(doc(db, "expenses", id));
         toast.success("Expense deleted successfully", {
           position: "top-center",
           autoClose: 1500,
         });
-      } else if (userData[0].savings) {
+      } else if (filteredData[0].savings) {
         await deleteDoc(doc(db, "savings", id));
         toast.success("Savings deleted successfully", {
           position: "top-center",
           autoClose: 1500,
         });
-      } else if (userData[0].incomes) {
+      } else if (filteredData[0].incomes) {
         await deleteDoc(doc(db, "incomes", id));
         toast.success("Income deleted successfully", {
           position: "top-center",

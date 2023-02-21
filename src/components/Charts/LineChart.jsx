@@ -15,12 +15,11 @@ import {
   TimeScale,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import "chartjs-adapter-moment";
+
 import { useStateContext } from "../../contexts/ContextProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore";
 import { auth, db } from "../../utils/firebase";
-import moment from "moment";
 
 ChartJS.register(
   BarElement,
@@ -38,9 +37,10 @@ ChartJS.register(
 
 const LineChart = () => {
   const [user, loading] = useAuthState(auth);
-  const { userExpenses, setUserExpenses } = useStateContext();
+  const { userExpenses, setUserExpenses, userIncomes, setUserIncomes } = useStateContext();
 
   const [expenseChartData, setExpenseChartData] = useState({ datasets: [] });
+  const [incomeChartData, setIncomeChartData] = useState({ datasets: [] });
 
   useEffect(() => {
     const getExpenses = async () => {
@@ -63,7 +63,6 @@ const LineChart = () => {
 
       const uniqueDateArray = [...new Set(dateArray)];
 
-      //  group the expenses by date and add them together, also limit the array to 7 items only to display on the chart
       const groupedExpenses = uniqueDateArray
         .map((date) => {
           const totalAmount = userExpenses
@@ -74,25 +73,13 @@ const LineChart = () => {
           return { date, totalAmount };
         })
         .slice(0, 5);
-
-      // //get all items from userExpenses that has the same dateValue and add them
-      // const groupedExpenses = userExpenses.reduce((acc, curr) => {
-      //   const date = curr.expenses.dateValue.toDate().toLocaleDateString("en-US");
-      //   if (!acc[date]) {
-      //     acc[date] = [];
-      //   }
-      //   acc[date].push(curr);
-      //   return acc;
-      // }, {});
-
-      // reverse the array to get the latest data
       groupedExpenses.reverse();
 
       setExpenseChartData({
         labels: groupedExpenses.map((data) => data.date),
         datasets: [
           {
-            label: "Expenses",
+            label: "Expense",
             data: groupedExpenses.map((data) => data.totalAmount),
             backgroundColor: "rgba(255, 99, 132, 0.2)",
             borderColor: "rgba(255, 99, 132, 1)",
@@ -105,10 +92,70 @@ const LineChart = () => {
     getExpenses();
   }, [user, loading, userExpenses, setUserExpenses]);
 
+  useEffect(() => {
+    const getIncomes = async () => {
+      if (loading) return;
+      if (!user) return navigate("/auth/login");
+
+      const collectionRef = collection(db, "incomes");
+      const q = query(
+        collectionRef,
+        where("user", "==", user.uid),
+        orderBy("incomes.dateValue", "desc")
+      );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        setUserIncomes(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      });
+
+      const dateArray = userIncomes.map((data) =>
+        data.incomes.dateValue.toDate().toLocaleDateString("en-US")
+      );
+
+      const uniqueDateArray = [...new Set(dateArray)];
+
+      const groupedIncomes = uniqueDateArray
+        .map((date) => {
+          const totalAmount = userIncomes
+            .filter((data) => data.incomes.dateValue.toDate().toLocaleDateString("en-US") === date)
+            .reduce((acc, curr) => {
+              return acc + curr.incomes.amountValue;
+            }, 0);
+          return { date, totalAmount };
+        })
+        .slice(0, 5);
+      groupedIncomes.reverse();
+
+      setIncomeChartData({
+        labels: groupedIncomes.map((data) => data.date),
+        datasets: [
+          {
+            label: "Income",
+            data: groupedIncomes.map((data) => data.totalAmount),
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 1,
+          },
+        ],
+      });
+      return unsubscribe;
+    };
+    getIncomes();
+  }, [user, loading, userIncomes, setUserIncomes]);
+
   return (
     <div>
       <Line
         data={expenseChartData}
+        options={{
+          responsive: true,
+          plugins: {
+            legend: { position: "top" },
+          },
+          animation: false,
+        }}
+      />
+      <Line
+        data={incomeChartData}
         options={{
           responsive: true,
           plugins: {

@@ -50,14 +50,11 @@ const Dashboard = () => {
     const incomesData = incomesSnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
     setData({ expenses: expensesData, incomes: incomesData });
-  }, [user, loading, navigate]);
+  }, [user, loading]);
 
   useEffect(() => {
     getData();
-    return () => {
-      getData();
-    };
-  }, [getData]);
+  }, []);
 
   return (
     <div className="mt-12">
@@ -139,7 +136,6 @@ const Dashboard = () => {
                 />
               </div>
             </div>
-            <Stacked width="320px" height="360px" />
           </div>
         </div>
       </div>
