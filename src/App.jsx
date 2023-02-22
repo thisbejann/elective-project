@@ -1,16 +1,8 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
-import {
-  Navbar,
-  Footer,
-  Sidebar,
-  ThemeSettings,
-  ExpenseDialog,
-  ExpenseEditForm,
-} from "./components";
+import { Navbar, Sidebar, ThemeSettings } from "./components";
 import { Dashboard, Expenses, Income, Savings, Login } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
@@ -36,16 +28,14 @@ const App = () => {
         <div className="flex relative dark:bg-main-dark-bg">
           {user && (
             <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
-              <TooltipComponent content="Settings" position="TopCenter">
-                <button
-                  type="button"
-                  className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
-                  style={{ background: currentColor, borderRadius: "50%" }}
-                  onClick={() => setThemeSettings(true)}
-                >
-                  <FiSettings />
-                </button>
-              </TooltipComponent>
+              <button
+                type="button"
+                className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+                style={{ background: currentColor, borderRadius: "50%" }}
+                onClick={() => setThemeSettings(true)}
+              >
+                <FiSettings />
+              </button>
             </div>
           )}
 

@@ -2,8 +2,6 @@ import { React, useState, useRef } from "react";
 
 import validator from "validator";
 
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
-
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { Timestamp, addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -13,7 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 
 const SavingsDialog = () => {
-  const { currentColor, handleChange, values, inputAmount } = useStateContext();
+  const { currentColor } = useStateContext();
 
   const [user, loading] = useAuthState(auth);
 
@@ -76,8 +74,6 @@ const SavingsDialog = () => {
     console.log(savingsObject);
   };
 
-  const dateValue = new Date();
-
   return (
     <div>
       <label
@@ -121,13 +117,17 @@ const SavingsDialog = () => {
                 </label>
               </div>
               <div className="mt-5">
-                <DatePickerComponent
-                  ref={dateRef}
-                  value={dateValue}
-                  placeholder="Enter Date"
-                  floatLabelType="Always"
-                  name="calendar"
-                />
+                <div className="w-full">
+                  <label className="label">
+                    <span className="label-text dark:text-white">Select a Date</span>
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full input input-bordered"
+                    max={new Date().toISOString().split("T")[0]}
+                    ref={dateRef}
+                  />
+                </div>
               </div>
               <div className="form-control flex flex-row gap-5">
                 <div className="w-full">

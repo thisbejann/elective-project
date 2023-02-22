@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@syncfusion/ej2": "*",
-    "@syncfusion/ej2-base": "~20.4.48",
-    "@syncfusion/ej2-react-base": "*",
-    "@syncfusion/ej2-react-calendars": "*",
-    "@syncfusion/ej2-react-charts": "*",
-    "@syncfusion/ej2-react-popups": "~20.4.49",
     "chart.js": "^4.2.1",
     "daisyui": "^2.43.0",
     "firebase": "^9.15.0",
