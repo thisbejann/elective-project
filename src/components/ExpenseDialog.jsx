@@ -3,9 +3,6 @@ import "firebase/firestore";
 
 import validator from "validator";
 
-import { DatePicker } from "antd";
-import moment from "moment";
-
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { Timestamp, addDoc, collection, serverTimestamp } from "firebase/firestore";
