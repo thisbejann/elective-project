@@ -468,15 +468,6 @@ export const links = [
       },
     ],
   },
-  {
-    title: "Apps",
-    links: [
-      {
-        name: "calendar",
-        icon: <AiOutlineCalendar />,
-      },
-    ],
-  },
 ];
 
 export const cartData = [
