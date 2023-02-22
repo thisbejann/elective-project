@@ -3,11 +3,9 @@ import { MdOutlineCancel } from "react-icons/md";
 
 import { Button } from "./";
 import { useStateContext } from "../contexts/ContextProvider";
-import avatar from "../data/avatar.jpg";
 
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { updateDates } from "@syncfusion/ej2/gantt";
 
 const UserProfile = () => {
   const { currentColor, resetMode, currentMode } = useStateContext();
@@ -37,12 +35,6 @@ const UserProfile = () => {
       localStorage.setItem("userData", JSON.stringify(newData));
     }
   };
-
-  // useEffect(() => {
-  //   if (loading) return;
-  //   if (!user) return;
-  //   sendData();
-  // }, []);
 
   return (
     <div className="nav-item shadow-md absolute right-2/4 translate-x-2/4 sm:right-1 sm:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">

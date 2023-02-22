@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { GoPrimitiveDot } from "react-icons/go";
-import { Stacked, Button, LineChart, PieChart } from "../components";
+import { LineChart, PieChart } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { auth, db } from "../utils/firebase";

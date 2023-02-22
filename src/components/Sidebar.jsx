@@ -2,7 +2,6 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from "../data/budgit-icon.svg";
 import { MdOutlineCancel } from "react-icons/md";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -34,15 +33,14 @@ const Sidebar = () => {
               <Logo className="w-10 h-10" />
               <span>Budg.it</span>
             </Link>
-            <TooltipComponent content="Menu" position="BottomCenter">
-              <button
-                type="button"
-                onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
-                className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
-              >
-                <MdOutlineCancel />
-              </button>
-            </TooltipComponent>
+
+            <button
+              type="button"
+              onClick={() => setActiveMenu((prevActiveMenu) => !prevActiveMenu)}
+              className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+            >
+              <MdOutlineCancel />
+            </button>
           </div>
           <div>
             <div className="mt-10">
