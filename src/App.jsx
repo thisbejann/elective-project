@@ -11,7 +11,7 @@ import {
   ExpenseDialog,
   ExpenseEditForm,
 } from "./components";
-import { Dashboard, Expenses, Calendar, Income, Savings, Login } from "./pages";
+import { Dashboard, Expenses, Income, Savings, Login } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
@@ -82,11 +82,6 @@ const App = () => {
                 <Route path="/expenses" element={<Expenses />} />
                 <Route path="/income" element={<Income />} />
                 <Route path="/savings" element={<Savings />} />
-                {/* <Route path="/edit/:id" element={<ExpenseEditForm data={userExpenses} />} />
-                <Route path="/add" element={<ExpenseEditForm />} /> */}
-
-                {/* Apps */}
-                <Route path="/calendar" element={<Calendar />} />
               </Routes>
             </div>
           </div>

@@ -3,8 +3,6 @@ import "firebase/firestore";
 
 import validator from "validator";
 
-import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
-
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { Timestamp, addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -14,13 +12,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-toastify";
 
 const ExpenseDialog = () => {
-  const { currentColor, handleChange, values, inputAmount } = useStateContext();
+  const { currentColor } = useStateContext();
 
   const [user, loading] = useAuthState(auth);
 
   const cashRef = useRef();
   const cardRef = useRef();
-  const dateRef = useRef();
+  const dateRef = useRef(null);
   const amountRef = useRef();
   const descriptionRef = useRef();
   const categoryRef = useRef();
@@ -45,6 +43,7 @@ const ExpenseDialog = () => {
       ? cashRef.current.value
       : cardRef.current.value;
     const dateValue = Timestamp.fromDate(new Date(dateRef.current.value));
+
     const amountValue = parseInt(amountRef.current.value);
     const descriptionValue = descriptionRef.current.value;
     const categoryValue = categoryRef.current.value;
@@ -76,8 +75,6 @@ const ExpenseDialog = () => {
     console.log(expenseObject);
   };
 
-  const dateValue = new Date();
-
   return (
     <div>
       <label
@@ -102,7 +99,7 @@ const ExpenseDialog = () => {
                   <input
                     type="radio"
                     name="transaction"
-                    className="radio dark:bg-white"
+                    className="radio bg-white"
                     value="Cash"
                     ref={cashRef}
                     required
@@ -116,20 +113,24 @@ const ExpenseDialog = () => {
                   <input
                     type="radio"
                     name="transaction"
-                    className="radio dark:bg-white "
+                    className="radio bg-white "
                     value="Credit/Debit"
                     ref={cardRef}
                   />
                 </label>
               </div>
               <div className="mt-5">
-                <DatePickerComponent
-                  ref={dateRef}
-                  value={dateValue}
-                  placeholder="Enter Date"
-                  floatLabelType="Always"
-                  name="calendar"
-                />
+                <div className="w-full">
+                  <label className="label">
+                    <span className="label-text dark:text-white">Select a Date</span>
+                  </label>
+                  <input
+                    type="date"
+                    className="w-full input input-bordered"
+                    max={new Date().toISOString().split("T")[0]}
+                    ref={dateRef}
+                  />
+                </div>
               </div>
               <div className="form-control flex flex-row gap-5">
                 <div className="w-full">
