@@ -113,7 +113,7 @@ const ExpenseDialog = () => {
                   <input
                     type="radio"
                     name="transaction"
-                    className="radio bg-white "
+                    className="radio bg-white"
                     value="Credit/Debit"
                     ref={cardRef}
                   />
