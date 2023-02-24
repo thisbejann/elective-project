@@ -129,6 +129,7 @@ const ExpenseDialog = () => {
                     className="w-full input input-bordered"
                     max={new Date().toISOString().split("T")[0]}
                     ref={dateRef}
+                    required
                   />
                 </div>
               </div>

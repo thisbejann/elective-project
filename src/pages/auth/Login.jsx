@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import { SiShopware } from "react-icons/si";
+import { ReactComponent as Logo } from "../../data/budgit-icon.svg";
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../utils/firebase";
@@ -34,7 +34,9 @@ const Login = () => {
     <div className="h-screen flex justify-center items-center">
       <div className="shadow-xl p-10 text-gray-700 rounded-lg md:h-1/2 md:w-1/3 text-center flex justify-center flex-col">
         <div className="items-center p-5 back">
-          <SiShopware className="text-5xl m-auto dark:text-white" />
+          <div className="flex justify-center">
+            <Logo className="w-[4rem] h-[4rem]" />
+          </div>
           <h1 className="font-bold mt-2 dark:text-white">Budg.it</h1>
         </div>
         <h2 className="text-2xl font-medium dark:text-white">Join Today</h2>
