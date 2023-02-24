@@ -6,10 +6,12 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = () => {
+  const navigate = useNavigate();
   const { currentMode } = useStateContext();
   const [user, loading] = useAuthState(auth);
   const [data, setData] = useState({ expenses: [], incomes: [], savings: [] });

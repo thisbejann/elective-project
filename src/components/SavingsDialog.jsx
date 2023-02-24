@@ -128,6 +128,7 @@ const SavingsDialog = () => {
                     className="w-full input input-bordered"
                     max={new Date().toISOString().split("T")[0]}
                     ref={dateRef}
+                    required
                   />
                 </div>
               </div>
@@ -141,10 +142,10 @@ const SavingsDialog = () => {
                     className="select select-bordered w-full"
                     name="category"
                   >
-                    <option value="Bills">Bills</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Food">Food</option>
-                    <option value="Wants">Wants</option>
+                    <option value="Emergency">Emergency</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Long-term">Long-term</option>
+                    <option value="Insurance">Insurance</option>
                   </select>
                 </div>
                 <div className="w-full">

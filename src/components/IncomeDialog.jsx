@@ -17,6 +17,7 @@ const IncomeDialog = () => {
 
   const cashRef = useRef();
   const cardRef = useRef();
+  const ePaymentRef = useRef();
   const dateRef = useRef();
   const amountRef = useRef();
   const descriptionRef = useRef();
@@ -40,7 +41,10 @@ const IncomeDialog = () => {
 
     const transactionValue = cashRef.current.checked
       ? cashRef.current.value
-      : cardRef.current.value;
+      : cardRef.current.checked
+      ? cardRef.current.value
+      : ePaymentRef.current.value;
+
     //format syncfusion datepicker value to yyyy-mm-dd
     const dateValue = Timestamp.fromDate(new Date(dateRef.current.value));
     const amountValue = parseInt(amountRef.current.value);
@@ -105,15 +109,23 @@ const IncomeDialog = () => {
                   />
                 </label>
                 <label className="label cursor-pointer">
-                  <span className="label-text mr-2 text-slate-900 dark:text-white">
-                    Credit/Debit Card
-                  </span>
+                  <span className="label-text mr-2 text-slate-900 dark:text-white">Debit Card</span>
                   <input
                     type="radio"
                     name="transaction"
                     className="radio bg-white"
-                    value="Credit/Debit"
+                    value="Debit"
                     ref={cardRef}
+                  />
+                </label>
+                <label className="label cursor-pointer">
+                  <span className="label-text mr-2 text-slate-900 dark:text-white">E-payment</span>
+                  <input
+                    type="radio"
+                    name="transaction"
+                    className="radio bg-white"
+                    value="Epayment"
+                    ref={ePaymentRef}
                   />
                 </label>
               </div>
@@ -127,6 +139,7 @@ const IncomeDialog = () => {
                     className="w-full input input-bordered"
                     max={new Date().toISOString().split("T")[0]}
                     ref={dateRef}
+                    required
                   />
                 </div>
               </div>
@@ -140,10 +153,10 @@ const IncomeDialog = () => {
                     className="select select-bordered w-full"
                     name="category"
                   >
-                    <option value="Bills">Bills</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Food">Food</option>
-                    <option value="Wants">Wants</option>
+                    <option value="Salary">Salary</option>
+                    <option value="Investments">Investments</option>
+                    <option value="Business">Business</option>
+                    <option value="Allowance">Allowance</option>
                   </select>
                 </div>
                 <div className="w-full">

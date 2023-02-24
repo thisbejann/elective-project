@@ -36,6 +36,7 @@ ChartJS.register(
 );
 
 const LineChart = () => {
+  const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
   const { userExpenses, setUserExpenses, userIncomes, setUserIncomes, currentMode } =
     useStateContext();
