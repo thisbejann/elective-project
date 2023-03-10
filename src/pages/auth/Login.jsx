@@ -31,13 +31,13 @@ const Login = () => {
   }, [user]);
 
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="shadow-xl p-10 text-gray-700 rounded-lg md:h-1/2 md:w-1/3 text-center flex justify-center flex-col">
-        <div className="items-center p-5 back">
+    <div className="flex h-screen items-center justify-center">
+      <div className="flex flex-col justify-center rounded-lg p-10 text-center text-gray-700 shadow-xl md:h-1/2 md:w-1/3">
+        <div className="back items-center p-5">
           <div className="flex justify-center">
-            <Logo className="w-[4rem] h-[4rem]" />
+            <Logo className="h-[4rem] w-[4rem]" />
           </div>
-          <h1 className="font-bold mt-2 dark:text-white">Budg.it</h1>
+          <h1 className="mt-2 font-bold dark:text-white">Budg.it</h1>
         </div>
         <h2 className="text-2xl font-medium dark:text-white">Join Today</h2>
         <div className="py-4">
@@ -46,7 +46,7 @@ const Login = () => {
             onClick={() => {
               GoogleLogin();
             }}
-            className="text-white bg-gray-700 w-full font-medium rounded-lg flex justify-center align-middle p-4 gap-2"
+            className="flex w-full justify-center gap-2 rounded-lg bg-gray-700 p-4 align-middle font-medium text-white"
           >
             <FcGoogle className="text-2xl" />
             Sign in with Google

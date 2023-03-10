@@ -71,65 +71,65 @@ const Dashboard = () => {
 
   return (
     <div className="mt-12">
-      <div className="flex flex-wrap lg:flex-nowrap justify-center">
+      <div className="flex flex-wrap justify-center lg:flex-nowrap">
         <div
-          className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg h-44 rounded-xl w-full lg:w-80 p-8 pt-9 m-3 mt-10  bg-hero-pattern bg-no-repeat bg-cover bg-center flex justify-center text-2xl border-2"
+          className="m-3 mt-10 flex h-44 w-full justify-center rounded-xl border-2 bg-white bg-hero-pattern bg-cover  bg-center bg-no-repeat p-8 pt-9 text-2xl dark:bg-secondary-dark-bg dark:text-gray-200 lg:w-80"
           style={{ borderColor: currentColor }}
         >
-          <div className="flex justify-between items-center ">
+          <div className="flex items-center justify-between ">
             <div>
-              <p className="font-bold text-gray-400 text-center">Wallet</p>
+              <p className="text-center font-bold text-gray-400">Wallet</p>
               <p className="text-2xl">{`₱${getTotalBalance}`}</p>
             </div>
           </div>
         </div>
 
         <div className="flex lg:mt-8">
-          <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
+          <div className="m-3 flex flex-wrap items-center justify-center gap-1">
             <div
-              className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl border-2"
+              className="rounded-2xl border-2 bg-white p-4 pt-9 dark:bg-secondary-dark-bg dark:text-gray-200 md:w-56"
               style={{ borderColor: currentColor }}
             >
               <p className="mt-3">
                 <span className="text-lg font-semibold">{`₱${getTotalExpenses}`}</span>
               </p>
-              <p className="text-sm text-gray-400 mt-1">Total Expense</p>
+              <p className="mt-1 text-sm text-gray-400">Total Expense</p>
             </div>
           </div>
-          <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
+          <div className="m-3 flex flex-wrap items-center justify-center gap-1">
             <div
-              className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl border-2"
+              className="rounded-2xl border-2 bg-white p-4 pt-9 dark:bg-secondary-dark-bg dark:text-gray-200 md:w-56"
               style={{ borderColor: currentColor }}
             >
               <p className="mt-3">
                 <span className="text-lg font-semibold">{`₱${getTotalIncomes}`}</span>
               </p>
-              <p className="text-sm text-gray-400 mt-1">Total Income</p>
+              <p className="mt-1 text-sm text-gray-400">Total Income</p>
             </div>
           </div>
-          <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
+          <div className="m-3 flex flex-wrap items-center justify-center gap-1">
             <div
-              className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-4 pt-9 rounded-2xl border-2"
+              className="rounded-2xl border-2 bg-white p-4 pt-9 dark:bg-secondary-dark-bg dark:text-gray-200 md:w-56"
               style={{ borderColor: currentColor }}
             >
               <p className="mt-3">
                 <span className="text-lg font-semibold">{`₱${getTotalSavings}`}</span>
               </p>
-              <p className="text-sm text-gray-400 mt-1">Total Savings</p>
+              <p className="mt-1 text-sm text-gray-400">Total Savings</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex gap-10 flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center gap-10">
         <div
-          className="bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780 border-2"
+          className="m-3 rounded-2xl border-2 bg-white p-4 dark:bg-secondary-dark-bg dark:text-gray-200 md:w-780"
           style={{ borderColor: currentColor }}
         >
-          <div className="flex justify-center mt-5">
-            <p className="font-bold text-2xl ">Data Charts</p>
+          <div className="mt-5 flex justify-center">
+            <p className="text-2xl font-bold ">Data Charts</p>
           </div>
-          <div className="mt-10 flex gap-10 flex-wrap justify-center">
+          <div className="mt-10 flex flex-wrap justify-center gap-10">
             <div
               className="border-b-1 pb-[3rem] sm:border-b-0 sm:border-r-1 sm:pr-10"
               style={{ borderColor: currentColor }}
@@ -138,7 +138,7 @@ const Dashboard = () => {
                 <LineChart />
               </div>
             </div>
-            <div className="mt-1 sm:mt-5 mb-5">
+            <div className="mt-1 mb-5 sm:mt-5">
               <PieChart />
             </div>
           </div>

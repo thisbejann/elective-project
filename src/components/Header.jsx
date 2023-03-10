@@ -1,7 +1,5 @@
 import React from "react";
 
-import { useStateContext } from "../contexts/ContextProvider";
-
 const Header = ({ category, title }) => {
   return (
     <div className="mb-10 ml-3 lg:ml-0 lg:mb-0 ">

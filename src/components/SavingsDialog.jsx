@@ -78,7 +78,7 @@ const SavingsDialog = () => {
     <div>
       <label
         htmlFor="my-modal-3"
-        className="btn border-none rounded-2xl"
+        className="btn rounded-2xl border-none"
         style={{ color: "white", backgroundColor: currentColor }}
       >
         Add Transaction
@@ -86,13 +86,13 @@ const SavingsDialog = () => {
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative dark:bg-main-dark-bg">
-          <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">
+          <label htmlFor="my-modal-3" className="btn-sm btn-circle btn absolute right-2 top-2">
             ✕
           </label>
           <form onSubmit={handleSubmit}>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">Add Transaction</h3>
             <div className="modal-action flex-col">
-              <div className="form-control flex-row gap-3 justify-center">
+              <div className="form-control flex-row justify-center gap-3">
                 <label className="label cursor-pointer">
                   <span className="label-text mr-2 text-slate-900 dark:text-white">Cash</span>
                   <input
@@ -125,7 +125,7 @@ const SavingsDialog = () => {
                   </label>
                   <input
                     type="date"
-                    className="w-full input input-bordered"
+                    className="input-bordered input w-full"
                     max={new Date().toISOString().split("T")[0]}
                     ref={dateRef}
                     required
@@ -139,7 +139,7 @@ const SavingsDialog = () => {
                   </label>
                   <select
                     ref={categoryRef}
-                    className="select select-bordered w-full"
+                    className="select-bordered select w-full"
                     name="category"
                   >
                     <option value="Emergency">Emergency</option>
@@ -157,7 +157,7 @@ const SavingsDialog = () => {
                     type="number"
                     min="1"
                     name="amount"
-                    className="input input-bordered w-full"
+                    className="input-bordered input w-full"
                     required
                   />
                 </div>
@@ -171,14 +171,14 @@ const SavingsDialog = () => {
                     ref={descriptionRef}
                     type="text"
                     name="description"
-                    className="input input-bordered w-full"
+                    className="input-bordered input w-full"
                     required
                   />
                 </div>
               </div>
               <div className="flex justify-end">
                 <button
-                  className="btn border-none mt-2"
+                  className="btn mt-2 border-none"
                   style={{ color: "white", backgroundColor: currentColor }}
                 >
                   Save

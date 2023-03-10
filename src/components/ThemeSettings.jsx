@@ -9,22 +9,22 @@ const ThemeSettings = () => {
   const { setColor, setMode, currentMode, currentColor, setThemeSettings } = useStateContext();
 
   return (
-    <div className="bg-half-transparent w-screen fixed nav-item top-0 right-0">
-      <div className="float-right h-screen dark:text-gray-200 bg-white dark:bg-[#484B52] w-400">
-        <div className="flex justify-between items-center p-4 ml-4">
-          <p className="font-semibold text-xl">Settings</p>
+    <div className="nav-item fixed top-0 right-0 w-screen bg-half-transparent">
+      <div className="float-right h-screen w-400 bg-white dark:bg-[#484B52] dark:text-gray-200">
+        <div className="ml-4 flex items-center justify-between p-4">
+          <p className="text-xl font-semibold">Settings</p>
           <button
             type="button"
             onClick={() => setThemeSettings(false)}
             style={{ color: "rgb(153,171,180", borderRadius: "50%" }}
-            className="text-2x p-3 hover:drop-shadow-xl hover:bg-light-gray"
+            className="text-2x p-3 hover:bg-light-gray hover:drop-shadow-xl"
           >
             <MdOutlineCancel />
           </button>
         </div>
 
-        <div className="flex-col border-t-1 border-color p-4 ml-4">
-          <p className="font-semibold text-lg">Theme Options</p>
+        <div className="border-color ml-4 flex-col border-t-1 p-4">
+          <p className="text-lg font-semibold">Theme Options</p>
 
           <div className="mt-4">
             <input
@@ -36,7 +36,7 @@ const ThemeSettings = () => {
               onChange={setMode}
               checked={currentMode === "Light"}
             />
-            <label htmlFor="light" className="ml-2 text-md cursor-pointer">
+            <label htmlFor="light" className="text-md ml-2 cursor-pointer">
               Light
             </label>
           </div>
@@ -50,19 +50,19 @@ const ThemeSettings = () => {
               onChange={setMode}
               checked={currentMode === "Dark"}
             />
-            <label htmlFor="Dark" className="ml-2 text-md cursor-pointer">
+            <label htmlFor="Dark" className="text-md ml-2 cursor-pointer">
               Dark
             </label>
           </div>
         </div>
-        <div className="flex-col border-t-1 border-color p-4 ml-4">
-          <p className="font-semibold text-lg">Theme Colors</p>
+        <div className="border-color ml-4 flex-col border-t-1 p-4">
+          <p className="text-lg font-semibold">Theme Colors</p>
           <div className="flex gap-3">
             {themeColors.map((item, index) => (
-              <div className="relative mt-2 cursor-pointer flex gap-5 items-center">
+              <div className="relative mt-2 flex cursor-pointer items-center gap-5">
                 <button
                   type="button"
-                  className="h-10 w-10 rounded-full cursor-pointer"
+                  className="h-10 w-10 cursor-pointer rounded-full"
                   style={{ backgroundColor: item.color }}
                   onClick={() => setColor(item.color)}
                 >

@@ -37,9 +37,9 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="nav-item shadow-md absolute right-2/4 translate-x-2/4 sm:right-1 sm:translate-x-0 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
-      <div className="flex justify-between items-center">
-        <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
+    <div className="nav-item absolute right-2/4 top-16 w-96 translate-x-2/4 rounded-lg bg-white p-8 shadow-md dark:bg-[#42464D] sm:right-1 sm:translate-x-0">
+      <div className="flex items-center justify-between">
+        <p className="text-lg font-semibold dark:text-gray-200">User Profile</p>
         <Button
           icon={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
@@ -49,11 +49,11 @@ const UserProfile = () => {
           borderRadius="50%"
         />
       </div>
-      <div className="flex gap-5 items-center mt-6 border-color border-b-1 pb-6">
-        <img className="rounded-full h-24 w-24" src={user.photoURL} alt="user-profile" />
+      <div className="border-color mt-6 flex items-center gap-5 border-b-1 pb-6">
+        <img className="h-24 w-24 rounded-full" src={user.photoURL} alt="user-profile" />
         <div>
-          <p className="font-semibold text-xl dark:text-gray-200"> {user.displayName} </p>
-          <p className="text-gray-500 text-sm font-semibold dark:text-gray-400"> {user.email} </p>
+          <p className="text-xl font-semibold dark:text-gray-200"> {user.displayName} </p>
+          <p className="text-sm font-semibold text-gray-500 dark:text-gray-400"> {user.email} </p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ const UserProfile = () => {
           }}
           type="button"
           style={{ backgroundColor: currentColor, color: "white", borderRadius: "10px" }}
-          className={` p-3 w-full hover:drop-shadow-xl`}
+          className={` w-full p-3 hover:drop-shadow-xl`}
         >
           Sign Out
         </button>
