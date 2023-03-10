@@ -25,12 +25,12 @@ const App = () => {
     <div className={currentMode === "Dark" ? "dark" : ""}>
       <BrowserRouter>
         <ToastContainer limit={1} />
-        <div className="flex relative dark:bg-main-dark-bg">
+        <div className="relative flex dark:bg-main-dark-bg">
           {user && (
             <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
               <button
                 type="button"
-                className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white"
+                className="p-3 text-3xl text-white hover:bg-light-gray hover:drop-shadow-xl"
                 style={{ background: currentColor, borderRadius: "50%" }}
                 onClick={() => setThemeSettings(true)}
               >
@@ -40,7 +40,7 @@ const App = () => {
           )}
 
           {user && activeMenu ? (
-            <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
+            <div className="sidebar fixed w-72 bg-white dark:bg-secondary-dark-bg">
               <Sidebar />
             </div>
           ) : (
@@ -49,12 +49,12 @@ const App = () => {
             </div>
           )}
           <div
-            className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full ${
+            className={`min-h-screen w-full bg-main-bg dark:bg-main-dark-bg ${
               user && activeMenu ? "md:ml-72" : "flex-2"
             }`}
           >
             {user && (
-              <div className="fixed md:static  bg-main-bg dark:bg-main-dark-bg p-2  w-full">
+              <div className="fixed w-full  bg-main-bg p-2 dark:bg-main-dark-bg  md:static">
                 <Navbar />
               </div>
             )}

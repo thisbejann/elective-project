@@ -34,63 +34,63 @@ const Table = ({ userData, filteredData }) => {
   };
 
   return (
-    <div className="p-5 h-screen">
+    <div className="h-screen p-5">
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full">
-          <thead className="dark:bg-main-dark-bg text-white bg-gray-500 border-b-2 border-gray-200">
+          <thead className="border-b-2 border-gray-200 bg-gray-500 text-white dark:bg-main-dark-bg">
             <tr>
-              <th className="w-16 p-3 text-sm font-semibold tracking-wide text-center">Category</th>
-              <th className="w-16 p-3 text-sm font-semibold tracking-wide text-center">Amount</th>
-              <th className="w-24 p-3 text-sm font-semibold tracking-wide text-center">
+              <th className="w-16 p-3 text-center text-sm font-semibold tracking-wide">Category</th>
+              <th className="w-16 p-3 text-center text-sm font-semibold tracking-wide">Amount</th>
+              <th className="w-24 p-3 text-center text-sm font-semibold tracking-wide">
                 Transaction
               </th>
-              <th className="w-24 p-3 text-sm font-semibold tracking-wide text-center">Date</th>
-              <th className="w-32 p-3 text-sm font-semibold tracking-wide text-center">
+              <th className="w-24 p-3 text-center text-sm font-semibold tracking-wide">Date</th>
+              <th className="w-32 p-3 text-center text-sm font-semibold tracking-wide">
                 Description
               </th>
-              <th className="w-24 p-3 text-sm font-semibold tracking-wide text-center">Action</th>
+              <th className="w-24 p-3 text-center text-sm font-semibold tracking-wide">Action</th>
             </tr>
           </thead>
-          <tbody className=" divide-y divide-gray-100]">
+          <tbody className=" divide-gray-100] divide-y">
             {filteredData.map((data) => (
               <tr
                 key={data.id}
-                className="odd:bg-white even:bg-[color:var(--some-color)] [&>*:last-child>button]:even:bg-white [&>*:last-child>button]:even:text-black [&>*:last-child>button]:odd:bg-[color:var(--some-color)] 
-                [&>*]:even:text-white [&>*]:odd:text-black"
+                className="odd:bg-white even:bg-[color:var(--some-color)] [&>*:last-child>button]:odd:bg-[color:var(--some-color)] [&>*:last-child>button]:even:bg-white [&>*:last-child>button]:even:text-black 
+                [&>*]:odd:text-black [&>*]:even:text-white"
                 style={{ "--some-color": currentColor }}
               >
-                <td className="p-3 text-center text-sm  whitespace-nowrap">
+                <td className="whitespace-nowrap p-3 text-center  text-sm">
                   {data.expenses?.categoryValue ||
                     data.savings?.categoryValue ||
                     data.incomes?.categoryValue}
                 </td>
-                <td className="p-3 text-center text-sm  whitespace-nowrap">
+                <td className="whitespace-nowrap p-3 text-center  text-sm">
                   {data.expenses?.amountValue ||
                     data.savings?.amountValue ||
                     data.incomes?.amountValue}
                 </td>
-                <td className="p-3 text-sm text-center  whitespace-nowrap">
+                <td className="whitespace-nowrap p-3 text-center  text-sm">
                   {data.expenses?.transactionValue ||
                     data.savings?.transactionValue ||
                     data.incomes?.transactionValue}
                 </td>
-                <td className="p-3 text-center text-sm  whitespace-nowrap">
+                <td className="whitespace-nowrap p-3 text-center  text-sm">
                   {data.expenses?.dateValue.toDate().toLocaleDateString("en-US") ||
                     data.savings?.dateValue.toDate().toLocaleDateString("en-US") ||
                     data.incomes?.dateValue.toDate().toLocaleDateString("en-US")}
                 </td>
-                <td className="p-3 text-center text-sm  whitespace-nowrap">
+                <td className="whitespace-nowrap p-3 text-center  text-sm">
                   {data.expenses?.descriptionValue ||
                     data.savings?.descriptionValue ||
                     data.incomes?.descriptionValue}
                 </td>
 
-                <td className="text-center text-sm whitespace-nowrap">
+                <td className="whitespace-nowrap text-center text-sm">
                   <button
-                    className="btn btn-sm gap-[4px] border-none "
+                    className="btn-sm btn gap-[4px] border-none "
                     onClick={() => deleteData(data.id)}
                   >
-                    <div className="flex justify-center items-center gap-[5px]">
+                    <div className="flex items-center justify-center gap-[5px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-4 w-4"

@@ -13,11 +13,11 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
     type="button"
     onClick={customFunc}
     style={{ color }}
-    className="relative text-xl rounded-full p-3 hover:bg-light-gray"
+    className="relative rounded-full p-3 text-xl hover:bg-light-gray"
   >
     <span
       style={{ background: dotColor }}
-      className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
+      className="absolute right-2 top-2 inline-flex h-2 w-2 rounded-full"
     />
     {icon}
   </button>
@@ -58,7 +58,7 @@ const Navbar = () => {
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
   return (
-    <div className="flex justify-between p-2 md:mx-6 relative">
+    <div className="relative flex justify-between p-2 md:mx-6">
       <NavButton
         title="Menu"
         customFunc={handleActiveMenu}
@@ -67,15 +67,15 @@ const Navbar = () => {
       />
       <div>
         <div
-          className="flex items-center gap-2 cursor-pointer p-1 hover:bg-gray-100 hover:dark:bg-secondary-dark-bg rounded-lg"
+          className="flex cursor-pointer items-center gap-2 rounded-lg p-1 hover:bg-gray-100 hover:dark:bg-secondary-dark-bg"
           onClick={() => setIsClicked(!isClicked)}
         >
-          <img src={user.photoURL} className="rounded-full w-8 h-8" />
+          <img src={user.photoURL} className="h-8 w-8 rounded-full" />
           <p>
-            <span className="text-gray-400 text-14">Hi, </span> {""}
-            <span className="text-gray-400 font-bold ml-1 text-14">{user.displayName}</span>
+            <span className="text-14 text-gray-400">Hi, </span> {""}
+            <span className="ml-1 text-14 font-bold text-gray-400">{user.displayName}</span>
           </p>
-          <MdKeyboardArrowDown className="text-gray-400 text-14" />
+          <MdKeyboardArrowDown className="text-14 text-gray-400" />
         </div>
 
         {isClicked && <UserProfile />}

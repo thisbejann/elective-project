@@ -103,16 +103,16 @@ const Expenses = () => {
 
   return (
     <div
-      className={`m-2 mt-[5rem] md:m-10 p-2 md:p-10 bg-white rounded-3xl dark:bg-secondary-dark-bg ${
+      className={`m-2 mt-[5rem] rounded-3xl bg-white p-2 dark:bg-secondary-dark-bg md:m-10 md:p-10 ${
         isClicked ? "hidden sm:block" : ""
       }`}
     >
-      <div className="flex justify-between mt-12 md:mt-3 flex-col lg:flex-row">
+      <div className="mt-12 flex flex-col justify-between md:mt-3 lg:flex-row">
         <Header category="Page" title="Expense" />
-        <div className="flex flex-col justify-between mx-5">
+        <div className="mx-5 flex flex-col justify-between">
           <div className="flex justify-between">
             <input
-              className="h-[3rem] w-[10rem] sm:w-[25rem] px-3 mr-5 font-semibold placeholder-gray-500  rounded-2xl ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2 outline-none "
+              className="mr-5 h-[3rem] w-[10rem] rounded-2xl px-3 font-semibold placeholder-gray-500  outline-none ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 sm:w-[25rem] "
               type="search"
               onChange={(e) => setExpenseQuery(e.target.value)}
               placeholder="Search..."
@@ -120,10 +120,10 @@ const Expenses = () => {
 
             <ExpenseDialog />
           </div>
-          <div className="flex justify-between mt-5 items-center sm:justify-end ">
+          <div className="mt-5 flex items-center justify-between sm:justify-end ">
             <div>
               <select
-                className="ring-2 h-[3rem] w-[14rem] sm:w-[15rem] mr-5 px-3 ring-gray-300 border-none rounded-2xl font-semibold text-gray-500 focus:ring-gray-500 focus:ring-2 outline-none sm:mr-5"
+                className="mr-5 h-[3rem] w-[14rem] rounded-2xl border-none px-3 font-semibold text-gray-500 outline-none ring-2 ring-gray-300 focus:ring-2 focus:ring-gray-500 sm:mr-5 sm:w-[15rem]"
                 name="sortBy"
                 onChange={handleSorting}
                 value={initial ? "Sort By:" : `${sorting.field},${sorting.order}`}
@@ -139,7 +139,7 @@ const Expenses = () => {
               </select>
             </div>
             <button
-              className="btn border-none outline-none rounded-2xl"
+              className="btn rounded-2xl border-none outline-none"
               style={{ color: "white", backgroundColor: currentColor }}
               onClick={handleReset}
             >
