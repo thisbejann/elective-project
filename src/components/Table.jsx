@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { toast } from "react-toastify";
 
-const Table = ({ userData, filteredData }) => {
+const Table = ({ filteredData }) => {
   const { currentColor } = useStateContext();
 
   const deleteData = async (id) => {

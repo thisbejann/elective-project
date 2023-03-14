@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import { React, useRef } from "react";
 
 import validator from "validator";
 
@@ -70,8 +70,6 @@ const SavingsDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
-
-    console.log(savingsObject);
   };
 
   return (
