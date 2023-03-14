@@ -3,7 +3,7 @@ import { LineChart, PieChart } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
 
 import { auth, db } from "../utils/firebase";
-import { collection, onSnapshot, query, where, orderBy, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";

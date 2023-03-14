@@ -1,4 +1,4 @@
-import { React, useState, useRef, useEffect } from "react";
+import { React, useRef } from "react";
 import "firebase/firestore";
 
 import validator from "validator";
@@ -71,8 +71,6 @@ const ExpenseDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
-
-    console.log(expenseObject);
   };
 
   return (

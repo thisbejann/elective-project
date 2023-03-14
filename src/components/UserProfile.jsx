@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 import { Button } from "./";
