@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 
 import { Navbar, Sidebar, ThemeSettings } from "./components";
-import { Dashboard, Expenses, Income, Savings, Login } from "./pages";
+import { Dashboard, Expenses, Income, Savings, Login, Team } from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 
@@ -72,6 +72,7 @@ const App = () => {
                 <Route path="/expenses" element={<Expenses />} />
                 <Route path="/income" element={<Income />} />
                 <Route path="/savings" element={<Savings />} />
+                <Route path="/ourteam" element={<Team />} />
               </Routes>
             </div>
           </div>

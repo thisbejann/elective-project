@@ -1,5 +1,5 @@
 import React from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart, AiOutlineTeam } from "react-icons/ai";
 import { FiShoppingBag } from "react-icons/fi";
 
 import { IoMdContacts } from "react-icons/io";
