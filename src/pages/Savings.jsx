@@ -103,7 +103,7 @@ const Savings = () => {
 
   return (
     <div
-      className={`m-2 mt-[5rem] rounded-3xl bg-white p-2 dark:bg-secondary-dark-bg md:m-10 md:p-10 ${
+      className={`m-2 mt-[5rem] h-full rounded-3xl bg-white p-2 dark:bg-secondary-dark-bg md:m-10 md:p-10 ${
         isClicked ? "hidden sm:block" : ""
       }`}
     >

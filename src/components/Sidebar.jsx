@@ -5,6 +5,7 @@ import { MdOutlineCancel } from "react-icons/md";
 
 import { links } from "../data/dummy";
 import { useStateContext } from "../contexts/ContextProvider";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
@@ -21,14 +22,14 @@ const Sidebar = () => {
     "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2";
 
   return (
-    <div className="ml-3 h-screen overflow-auto pb-10 md:overflow-hidden md:hover:overflow-auto">
+    <div className="mx-3 h-screen overflow-auto pb-10 md:overflow-hidden md:hover:overflow-auto">
       {activeMenu && (
         <>
           <div className="mt-2 flex items-center justify-between">
             <Link
               to="/dashboard"
               onClick={handleCloseSideBar}
-              className="border-red-solid ml-3 mt-4 flex items-center gap-3 text-xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+              className="ml-3 mt-4 flex items-center gap-3 text-xl font-extrabold tracking-tight text-slate-900 dark:text-white"
             >
               <Logo className="h-10 w-10" />
               <span>Budg.it</span>
@@ -42,25 +43,41 @@ const Sidebar = () => {
               <MdOutlineCancel />
             </button>
           </div>
-          <div>
-            <div className="mt-10">
-              {links.map((item) => (
-                <div key={item.title}>
-                  <p className="m-3 mt-4 uppercase text-gray-400">{item.title}</p>
-                  {item.links.map((link) => (
-                    <NavLink
-                      to={`/${link.name}`}
-                      key={link.name}
-                      onClick={handleCloseSideBar}
-                      style={({ isActive }) => ({ backgroundColor: isActive ? currentColor : "" })}
-                      className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                    >
-                      {link.icon}
-                      <span className="capitalize">{link.name}</span>
-                    </NavLink>
-                  ))}
-                </div>
-              ))}
+          <div className="flex h-[calc(100%-64px)] flex-col justify-between">
+            <div>
+              <div className="mt-10">
+                {links.map((item) => (
+                  <div key={item.title}>
+                    <p className="m-3 mt-4 uppercase text-gray-400">{item.title}</p>
+                    {item.links.map((link) => (
+                      <NavLink
+                        to={`/${link.name}`}
+                        key={link.name}
+                        onClick={handleCloseSideBar}
+                        style={({ isActive }) => ({
+                          backgroundColor: isActive ? currentColor : "",
+                        })}
+                        className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                      >
+                        {link.icon}
+                        <span className="capitalize">{link.name}</span>
+                      </NavLink>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-center">
+                <NavLink
+                  to="/ourteam"
+                  onClick={handleCloseSideBar}
+                  className="text-md flex items-center gap-1 rounded-lg p-2 text-gray-700 hover:bg-light-gray dark:text-gray-200 dark:hover:text-black"
+                >
+                  <AiOutlineTeam />
+                  <span>Our Team</span>
+                </NavLink>
+              </div>
             </div>
           </div>
         </>

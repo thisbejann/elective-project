@@ -33,7 +33,7 @@ const Table = ({ filteredData }) => {
   };
 
   return (
-    <div className="h-screen p-5">
+    <div className="h-full p-5">
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full">
           <thead className="border-b-2 border-gray-200 bg-gray-500 text-white dark:bg-main-dark-bg">
@@ -50,7 +50,7 @@ const Table = ({ filteredData }) => {
               <th className="w-24 p-3 text-center text-sm font-semibold tracking-wide">Action</th>
             </tr>
           </thead>
-          <tbody className=" divide-gray-100] divide-y">
+          <tbody className=" divide-y divide-gray-100">
             {filteredData.map((data) => (
               <tr
                 key={data.id}
@@ -58,27 +58,27 @@ const Table = ({ filteredData }) => {
                 [&>*]:odd:text-black [&>*]:even:text-white"
                 style={{ "--some-color": currentColor }}
               >
-                <td className="whitespace-nowrap p-3 text-center  text-sm">
+                <td className="whitespace-nowrap p-3 text-center text-sm">
                   {data.expenses?.categoryValue ||
                     data.savings?.categoryValue ||
                     data.incomes?.categoryValue}
                 </td>
-                <td className="whitespace-nowrap p-3 text-center  text-sm">
+                <td className="whitespace-nowrap p-3 text-center text-sm">
                   {data.expenses?.amountValue ||
                     data.savings?.amountValue ||
                     data.incomes?.amountValue}
                 </td>
-                <td className="whitespace-nowrap p-3 text-center  text-sm">
+                <td className="whitespace-nowrap p-3 text-center text-sm">
                   {data.expenses?.transactionValue ||
                     data.savings?.transactionValue ||
                     data.incomes?.transactionValue}
                 </td>
-                <td className="whitespace-nowrap p-3 text-center  text-sm">
+                <td className="whitespace-nowrap p-3 text-center text-sm">
                   {data.expenses?.dateValue.toDate().toLocaleDateString("en-US") ||
                     data.savings?.dateValue.toDate().toLocaleDateString("en-US") ||
                     data.incomes?.dateValue.toDate().toLocaleDateString("en-US")}
                 </td>
-                <td className="whitespace-nowrap p-3 text-center  text-sm">
+                <td className="whitespace-nowrap p-3 text-center text-sm">
                   {data.expenses?.descriptionValue ||
                     data.savings?.descriptionValue ||
                     data.incomes?.descriptionValue}
