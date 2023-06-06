@@ -59,7 +59,7 @@ const App = () => {
               </div>
             )}
 
-            <div>
+            <div className="lg:h-[calc(100%-150px)]">
               {themeSettings && <ThemeSettings />}
 
               <Routes>
