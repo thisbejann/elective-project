@@ -12,7 +12,6 @@ This project is created using:
 * React.js
 * Tailwind CSS
 * Daisy UI
-* Syncfusion
 * Firebase
 
 ## General Info
