@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { auth } from "../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 const TeamProfile = ({ name, role, imageSrc, description }) => {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/auth/login");
+  }, [user, loading]);
+
   return (
     <div className="flex flex-col items-center justify-center rounded-xl bg-gray-200 p-5 shadow-sm dark:bg-main-dark-bg">
       <img className="h-40 w-40 rounded-full object-cover" src={imageSrc} alt="profile" />
