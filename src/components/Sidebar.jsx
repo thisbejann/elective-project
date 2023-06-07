@@ -43,7 +43,7 @@ const Sidebar = () => {
               <MdOutlineCancel />
             </button>
           </div>
-          <div className="flex h-[calc(100%-64px)] flex-col justify-between">
+          <div className="flex h-[calc(100%-80px)] flex-col justify-between">
             <div>
               <div className="mt-10">
                 {links.map((item) => (

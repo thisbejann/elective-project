@@ -9,7 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { currentColor } = useStateContext();
+  const { currentColor, isClicked } = useStateContext();
 
   const navigate = useNavigate();
   const [user, loading] = useAuthState(auth);
@@ -70,7 +70,7 @@ const Dashboard = () => {
   }, [user, loading]);
 
   return (
-    <div className="mt-12">
+    <div className={`mt-12 ${isClicked ? "hidden sm:block" : ""}`}>
       <div className="flex flex-wrap justify-center lg:flex-nowrap">
         <div
           className="m-3 mt-10 flex h-44 w-full justify-center rounded-xl border-2 bg-white bg-hero-pattern bg-cover  bg-center bg-no-repeat p-8 pt-9 text-2xl dark:bg-secondary-dark-bg dark:text-gray-200 lg:w-80"
