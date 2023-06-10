@@ -196,14 +196,12 @@ const IncomeDialog = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end">
-                <button
-                  className="btn mt-2 border-none"
-                  style={{ color: "white", backgroundColor: currentColor }}
-                >
-                  Save
-                </button>
-              </div>
+              <button
+                className="btn mt-2 border-none"
+                style={{ color: "white", backgroundColor: currentColor }}
+              >
+                Save
+              </button>
             </div>
           </form>
         </div>
