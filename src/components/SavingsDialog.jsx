@@ -70,6 +70,17 @@ const SavingsDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
+
+    // clear the fields
+    cashRef.current.checked = true;
+    dateRef.current.value = "";
+    amountRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
+
+    // close the modal
+    const modal = document.querySelector(".modal-toggle");
+    modal.checked = false;
   };
 
   return (
