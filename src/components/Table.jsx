@@ -33,7 +33,7 @@ const Table = ({ filteredData }) => {
   };
 
   return (
-    <div className="h-full p-5">
+    <div className="h-[calc(100%-65px)] p-5">
       <div className="overflow-auto rounded-lg shadow">
         <table className="w-full">
           <thead className="border-b-2 border-gray-200 bg-gray-500 text-white dark:bg-main-dark-bg">

@@ -148,7 +148,6 @@ const Expenses = () => {
           </div>
         </div>
       </div>
-
       <Table filteredData={filteredItems} />
     </div>
   );
