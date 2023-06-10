@@ -73,6 +73,17 @@ const IncomeDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
+
+    // clear the fields
+    cashRef.current.checked = true;
+    dateRef.current.value = "";
+    amountRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
+
+    // close the modal
+    const modal = document.querySelector(".modal-toggle");
+    modal.checked = false;
   };
 
   return (
@@ -93,7 +104,7 @@ const IncomeDialog = () => {
           <form onSubmit={handleSubmit}>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">Add Transaction</h3>
             <div className="modal-action flex-col">
-              <div className="form-control flex-row justify-center gap-3">
+              <div className="form-control flex-row justify-center gap-0 lg:gap-5">
                 <label className="label cursor-pointer">
                   <span className="label-text mr-2 text-slate-900 dark:text-white">Cash</span>
                   <input

@@ -71,6 +71,17 @@ const ExpenseDialog = () => {
       avatar: user.photoURL,
       name: user.displayName,
     });
+
+    // clear the fields
+    cashRef.current.checked = true;
+    dateRef.current.value = "";
+    amountRef.current.value = "";
+    descriptionRef.current.value = "";
+    categoryRef.current.value = "";
+
+    // close the modal
+    const modal = document.querySelector(".modal-toggle");
+    modal.checked = false;
   };
 
   return (
@@ -175,14 +186,14 @@ const ExpenseDialog = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end">
-                <button
-                  className="btn mt-2 border-none"
-                  style={{ color: "white", backgroundColor: currentColor }}
-                >
-                  Save
-                </button>
-              </div>
+
+              <button
+                htmlFor="my-modal-3"
+                className="btn mt-2 border-none"
+                style={{ color: "white", backgroundColor: currentColor }}
+              >
+                Save
+              </button>
             </div>
           </form>
         </div>
