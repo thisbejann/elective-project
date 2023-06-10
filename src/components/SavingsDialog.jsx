@@ -119,7 +119,7 @@ const SavingsDialog = () => {
               <div className="mt-5">
                 <div className="w-full">
                   <label className="label">
-                    <span className="label-text text-white">Select a Date</span>
+                    <span className="label-text dark:text-white">Select a Date</span>
                   </label>
                   <input
                     type="date"
